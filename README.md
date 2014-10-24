@@ -1,6 +1,6 @@
 #Bookit App
 
-## An application developed by Craig Deboer <craig@cdeboer.net></code>.
+## An application developed by Craig Deboer <craig@cdeboer.net>.
 
 
 This application was developed using:
