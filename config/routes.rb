@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'users/index'
+
+  get 'users/new'
+
+  get 'users/create'
+
+  get 'users/edit'
+
+  get 'users/destroy'
+
   root 'static_pages#home'
 
   get 'static_pages/help'
