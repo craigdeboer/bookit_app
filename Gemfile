@@ -11,12 +11,20 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'figaro', '~> 1.0.0'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
 	gem 'byebug'
 	gem 'better_errors' 
 	gem 'binding_of_caller'
 	gem 'rspec-rails', '~> 3.1.0'
+end
+
+group :development do
+    gem 'capistrano'
+    gem 'capistrano-rvm'
+    gem 'capistrano-rails'
+
 end
 
 group :test do
