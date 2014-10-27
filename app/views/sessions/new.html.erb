@@ -1,0 +1,7 @@
+<h1>Please Log In.</h1>
+
+<%= simple_form_for(:session, url: login_path) do |f| %>
+	<%= f.input :name %>
+	<%= f.input :password %>
+	<%= f.submit "Log In" %>
+<% end %>
