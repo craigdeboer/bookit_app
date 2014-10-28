@@ -3,11 +3,20 @@ Rails.application.routes.draw do
   root                'static_pages#home'
   get    'contact' => 'static_pages#contact'
   get    'help'    => 'static_pages#help'
+
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+
   get    'signup'  => 'users#new'
   resources :users
+
+  get 'new_wheelchair' => 'wheelchairs#new'
+  post 'wheelchairs' => 'wheelchairs#create'
+  get 'wheelchairs' => 'wheelchairs#index'
+  get 'edit_wheelchair' => 'wheelchairs#edit'
+  patch 'wheelchair' => 'wheelchairs#update'
+  delete 'wheelchair' => 'wheelchairs#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

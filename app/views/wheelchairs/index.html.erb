@@ -1,0 +1,15 @@
+<h1>This is the wheelchair index page</h1>
+
+<% @wheelchair.each do |wc| %>
+	<%= wc.manufacturer %>
+	<%= wc.model %>
+	<%= wc.width %>
+	<%= wc.depth %>
+	<%= wc.color %>
+	<%= wc.inventory_tag %>
+	<%= wc.serial_number %>
+	<%= link_to "edit", edit_wheelchair_path(wc_id: wc.id), method: :get %>
+	<%= link_to "delete", wheelchair_path(wc_id: wc.id), method: :delete, data: { confirm: "You sure?"} %>
+	<br>
+<% end %>
+
