@@ -6,8 +6,10 @@ RSpec.describe User, :type => :model do
   	password: "foobar", password_confirmation: "foobar") }
 
   it "should have the right attributes" do
-  	expect(@user).to respond_to(:name, :initials, :email, :admin, :password,
-  		:password_confirmation, :password_digest)
+  	expect(@user).to respond_to(:name, :initials, :email, 
+                                :admin, :password, :password_confirmation, 
+                                :password_digest, :remember_token,
+                                :remember_digest)
   end
 
   it "should be valid and not be admin" do

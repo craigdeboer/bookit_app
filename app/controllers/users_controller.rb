@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+  before_action :require_login
+  before_action :require_admin, only: [:index, :create, :edit, :destroy]
+
   def index
   end
 
@@ -32,7 +36,23 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :initials, :email, :password, :password_confirmation)
     end
 
+    def require_login
+      unless logged_in?
+        flash[:info] = "You must be logged in to visit this page. Please log in."
+        redirect_to login_path
+      end
+    end
 
+    def require_admin
+      unless admin?
+        flash[:info] = "You must have administration priviledges to access the page you requested"
+        if logged_in?
+          redirect_to current_user
+        else
+          redirect_to login_path
+        end
+      end
+    end
 
 end
 
