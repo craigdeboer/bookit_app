@@ -19,7 +19,7 @@ class WheelchairsController < ApplicationController
 	end
 
 	def edit
-		@wheelchair = Wheelchair.find(params[:wc_id])
+		@wheelchair = Wheelchair.find(params[:id])
 	end
 
 	def update
@@ -33,7 +33,7 @@ class WheelchairsController < ApplicationController
 	end
 
 	def destroy
-		wheelchair = Wheelchair.find(params[:wc_id])
+		wheelchair = Wheelchair.find(params[:id])
 		flash[:success] = "#{wheelchair.manufacturer} #{wheelchair.model} has been deleted."
 		wheelchair.destroy
 		redirect_to wheelchairs_path
@@ -42,7 +42,7 @@ class WheelchairsController < ApplicationController
 	private
 
 		def wheelchair_params
-			params.require(:wheelchair).permit(:manufacturer, :model, :width, :depth, :color, :inventory_tag, :serial_number)
+			params.require(:wheelchair).permit(:manufacturer, :model_type, :width, :depth, :color, :inventory_tag, :serial_number)
 		end
 
 

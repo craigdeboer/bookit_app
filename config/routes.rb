@@ -9,14 +9,13 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   get    'signup'  => 'users#new'
-  resources :users
+  resources :users do
+    resources :bookings
+  end
+  resources :wheelchairs do
+    resources :bookings, :defaults => { bookable: "wheelchair" }
+  end
 
-  get 'new_wheelchair' => 'wheelchairs#new'
-  post 'wheelchairs' => 'wheelchairs#create'
-  get 'wheelchairs' => 'wheelchairs#index'
-  get 'edit_wheelchair' => 'wheelchairs#edit'
-  patch 'wheelchair' => 'wheelchairs#update'
-  delete 'wheelchair' => 'wheelchairs#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

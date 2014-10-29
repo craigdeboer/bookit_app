@@ -2,14 +2,15 @@
 
 <% @wheelchair.each do |wc| %>
 	<%= wc.manufacturer %>
-	<%= wc.model %>
+	<%= wc.model_type %>
 	<%= wc.width %>
 	<%= wc.depth %>
 	<%= wc.color %>
 	<%= wc.inventory_tag %>
 	<%= wc.serial_number %>
-	<%= link_to "edit", edit_wheelchair_path(wc_id: wc.id), method: :get %>
-	<%= link_to "delete", wheelchair_path(wc_id: wc.id), method: :delete, data: { confirm: "You sure?"} %>
+	<%= link_to "edit", edit_wheelchair_path(wc) %>
+	<%= link_to "delete", wc, method: :delete, data: { confirm: "You sure?"} %>
+	<%= link_to "view availability/book", new_wheelchair_booking_path(wc) %>
 	<br>
 <% end %>
 

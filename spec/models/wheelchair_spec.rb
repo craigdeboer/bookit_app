@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe Wheelchair, :type => :model do
   
   before do
-  	@wheelchair = Wheelchair.new(manufacturer: "Sunrise", model: "Quickie 2",
+  	@wheelchair = Wheelchair.new(manufacturer: "Sunrise", model_type: "Quickie 2",
   															 width: 18, depth: 16, color: "Black",
   															 inventory_tag: "SUN Quickie 2",
   															 serial_number: "Q2-120524")
   end
 
   it "should have the right attributes" do
-  	expect(@wheelchair).to respond_to(:manufacturer, :model, :width,
+  	expect(@wheelchair).to respond_to(:manufacturer, :model_type, :width,
   																		:depth, :color, :inventory_tag,
   																		:serial_number)
   end
@@ -25,8 +25,8 @@ RSpec.describe Wheelchair, :type => :model do
   	end
   end
 
-  describe "with blank model" do
-  	before { @wheelchair.model = "" }
+  describe "with blank model_type" do
+  	before { @wheelchair.model_type = "" }
   	it "should not be valid" do
   		expect(@wheelchair).not_to be_valid
   	end

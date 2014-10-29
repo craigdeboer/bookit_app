@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028182723) do
+ActiveRecord::Schema.define(version: 20141029164429) do
+
+  create_table "bookings", force: true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "user_id"
+    t.integer  "bookable_id"
+    t.string   "bookable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bookings", ["user_id"], name: "index_bookings_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -26,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141028182723) do
 
   create_table "wheelchairs", force: true do |t|
     t.string   "manufacturer"
-    t.string   "model"
+    t.string   "model_type"
     t.integer  "width"
     t.integer  "depth"
     t.string   "color"

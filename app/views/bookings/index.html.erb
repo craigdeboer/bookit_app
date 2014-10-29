@@ -1,0 +1,13 @@
+<h1>This page will show the user's bookings</h1>
+
+<% @bookings.each do |booking| %>
+	<% bookable = booking.bookable_type.constantize.find(booking.bookable_id) %>
+	<%= bookable.manufacturer %>
+	<%= bookable.model_type %>
+	<%= bookable.serial_number %>
+	<%= booking.start_date %>
+	<%= booking.end_date %>
+	<%= link_to "delete booking", [bookable, booking], method: :delete %>
+	<br>
+
+<% end %>
