@@ -13,16 +13,136 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap-sprockets";
- @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
- /* Debug params box */
+/* Debug params box */
 
- .debug_dump {
- 	clear: both;
- 	float: left;
- 	width: 100%;
- 	margin-top: 45px;
- }
+.debug_dump {
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	margin: auto;
+}
+
+
+
+/* Header */
+
+
+
+.jumbotron {
+	text-align: center;
+	background-color: #FFF;
+	.btn {
+		margin-top: 30px;
+	}
+}
+
+.home-links a {
+	font-size: 1.25em;
+	display: block;
+	margin-bottom: 25px;
+
+}
+
+
+.navbar-header {
+	margin-top: 10px;
+}
+
+.navbar-inverse {
+	background-color: #428bca;
+}
+
+#logo {
+	font-size: 1.7em;
+	background-color: #428bca;
+	color: #fff;
+	&:hover {
+		color: #000;
+	}
+}
+
+
+#header-links {
+	font-size: 1.25em;
+	padding-top: 10px;
+	a {
+		color: #fff;
+		background-color: #428bca;
+	}
+}
+
+#after-header {
+	padding-top: 150px;
+}
+
+.admin-options {
+	border-top: 1px solid #999;
+	p {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		font-size: 1.5em;
+		text-align: center;
+	}
+}
+
+footer {
+	margin-top: 150px;
+	border-top: 1px solid #999;
+}
+footer small {
+	padding-top: 10px;
+	color: #888;
+	float: left;
+	p {
+		font-size: 1.5em;
+	}
+	a {
+		color: #888;
+	}
+}
+footer ul {
+	float: right;
+	list-style: none;
+	padding-right: 15px;
+	padding-top: 10px;
+
+}	
+footer ul li {
+	float: left;
+	margin-left: 40px;
+	a {
+		color: #888;
+		font-size: 1.25em;
+	}
+}
+
+.new-user {
+	padding-left: 100px;
+}
+
+#admin-question {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.admin-user-select {
+	margin-left: 30px;
+}
+
+
+
+
+
+
+
+
 
 

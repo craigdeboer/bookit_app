@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :require_admin, only: [:index, :create, :edit, :destroy]
 
   def index
-    
+    @user = User.all
   end
 
   def show

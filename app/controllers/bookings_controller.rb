@@ -4,7 +4,11 @@ class BookingsController < ApplicationController
 
   # Route for this action for users is user_bookings_path
   def index
-    @bookings = current_user.bookings.order(bookable_type: :desc, bookable_id: :asc)
+    if logged_in?
+      @bookings = current_user.bookings.order(bookable_type: :desc, bookable_id: :asc)
+    else
+      redirect_to "/"
+    end
   end
 
   def new

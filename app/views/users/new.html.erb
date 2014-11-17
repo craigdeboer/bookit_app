@@ -1,10 +1,13 @@
-<h1>Sign up a new User.</h1>
-
+<h1>Add a new user.</h1>
+<div class="new-user">
 <%= simple_form_for @user do |f| %>
 	<%= f.input :name %>
 	<%= f.input :initials %>
 	<%= f.input :email %>
 	<%= f.input :password %>
 	<%= f.input :password_confirmation, label: "Confirmation" %>
+	<p id="admin-question">Do you want this user to have admin priviledges?</p>
+	<%= f.input :admin, label: false, as: :radio_buttons, wrapper_html: { class: "admin-user-select" } %>
 	<%= f.button :submit, "Create User" %>
 <% end %>
+</div>

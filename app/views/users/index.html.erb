@@ -1,2 +1,32 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+
+<table class="table" id="users-index">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Initials</th>
+			<th>Email</th>
+			<th>Admin</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @user.each do |user| %>
+			<tr>
+				<td><%= user.name %></td>
+				<td><%= user.initials %></td>
+				<td><%= user.email %></td>
+				<% if user.admin == true %>
+					<td>yes</td>
+				<% else %>
+					<td>no</td>
+				<% end %>
+				<td><%= link_to "edit", edit_user_path(user) %></td>
+				<td><%= link_to "delete", edit_user_path(user) %></td>
+			</tr>
+			<br>
+		<% end %>
+	</tbody>
+</table>
+<div class="container-fluid row">
+	<%= link_to "Add New User", new_user_path, class: "btn btn-primary btn-lg col-xs-2 col-xs-offset-5" %>
+</div>
+

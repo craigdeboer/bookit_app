@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>BookitApp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<% flash.each do |msg_type, msg| %>
-	<%= content_tag(:div, msg, class: "alert alert-#{msg_type}") %>
-<% end %>
-<%= yield %>
-<%= debug(params) if Rails.env.development? %>
-</body>
+  <head>
+    <title><%= yield(:title) %></title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+  	<%= render 'layouts/header' %>
+    <div id="after-header">
+      <%= render 'layouts/flash' %>
+      <%= yield %>
+    </div>
+    <%= debug(params) if Rails.env.development? %>
+    <%= render 'layouts/footer' %>
+  </body>
 </html>
