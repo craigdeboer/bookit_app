@@ -1,0 +1,26 @@
+
+<div class="container" id="wc-search-form">		
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-2">
+			<%= simple_form_for :wheelchair_search, url: wheelchairs_path, method: :get do |f| %>
+			<div class="row">
+				<div class="col-md-4">
+					<p class="search-heading">Select Model(s)</p>
+					<%= f.input :model_type, label: false, input_html: { multiple: true }, collection: (Wheelchair.all.map { |wheelchair| wheelchair.model_type }).uniq.sort, as: :check_boxes %>
+				</div>
+				<div class="col-md-4">
+					<p class="search-heading">Select Width(s)</p>
+					<%= f.input :width, label: false, input_html: { multiple: true }, collection: 14..22, as: :check_boxes %>
+				</div>
+				<div class="col-md-4">
+					<p class="search-heading">Select Depth(s)</p>
+					<%= f.input :depth, label: false, input_html: { multiple: true }, collection: 14..20, as: :check_boxes %>
+				</div>
+				<div class="row">
+					<%= f.submit "Find Wheelchairs", class: "btn btn-primary btn-large col-md-4 col-md-offset-4 col-xs-6" %>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -1,16 +1,44 @@
-<h1>This is the wheelchair index page</h1>
+<%= link_to "Advanced Search", wheelchair_search_path, class: "btn btn-primary btn-lg", id: "advanced-search" %>
 
-<% @wheelchair.each do |wc| %>
-	<%= wc.manufacturer %>
-	<%= wc.model_type %>
-	<%= wc.width %>
-	<%= wc.depth %>
-	<%= wc.color %>
-	<%= wc.inventory_tag %>
-	<%= wc.serial_number %>
-	<%= link_to "edit", edit_wheelchair_path(wc) %>
-	<%= link_to "delete", wc, method: :delete, data: { confirm: "You sure?"} %>
-	<%= link_to "view availability/book", new_wheelchair_booking_path(wc) %>
-	<br>
+<table id="wheelchairs">
+	<thead>
+		<tr>
+			<th class="hidden-xs">Manufacturer</th>
+			<th>Model</th>
+			<th>Width</th>
+			<th>Depth</th>
+			<th class="hidden-xs">Color</th>
+			<th class="hidden-xs">Inventory Tag</th>
+			<th>Serial Number</th>
+			<th></th>
+			<% if admin? %>
+				<th></th>
+				<th></th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody>
+		<% @wheelchair.each do |wc| %>
+			<tr>
+				<td class="hidden-xs"><%= wc.manufacturer %></td>
+				<td><%= wc.model_type %></td>
+				<td><%= wc.width %></td>
+				<td><%= wc.depth %></td>
+				<td class="hidden-xs"><%= wc.color %></td>
+				<td class="hidden-xs"><%= wc.inventory_tag %></td>
+				<td><%= wc.serial_number %></td>
+				<td><%= link_to "View/ Book", new_wheelchair_booking_path(wc), class: "btn btn-primary btn-sm" %></td>
+				<% if admin? %>
+					<td><%= link_to "edit", edit_wheelchair_path(wc) %></td>
+					<td><%= link_to "delete", wc, method: :delete, data: { confirm: "You sure?"} %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<% if admin? %>
+	<div class="container-fluid row">
+	<%= link_to "Add New Wheelchair", new_wheelchair_path, class: "btn btn-primary col-xs-3 col-xs-offset-1" %>
+	</div>
 <% end %>
 

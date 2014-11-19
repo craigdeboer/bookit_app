@@ -13,12 +13,15 @@
 	<div class="home-links container-fluid row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<%= link_to "View/Edit Your Current Bookings", user_bookings_path(current_user), class: "btn btn-primary btn-lg" %>
-			<%= link_to "Search For And Book Equipment", root_path, class: "btn btn-primary btn-lg" %>
+			<%= link_to "Book Manual Wheelchairs", wheelchairs_path, class: "btn btn-primary btn-lg" %>
+			<%= link_to "Book Power Wheelchairs", root_path, class: "btn btn-primary btn-lg" %>
+			<%= link_to "Book Mattresses",  root_path, class: "btn btn-primary btn-lg" %>
+			<%= link_to "Book Other Equipment", root_path, class: "btn btn-primary btn-lg" %>
 			<% if admin? %>
 				<div class="admin-options">
 					<p>ADMIN OPTIONS</p>
 					<%= link_to "Manage Users", users_path, class: "btn btn-primary btn-lg" %>
-					<%= link_to "Manage Manual Wheelchairs", root_path, class: "btn btn-primary btn-lg" %>
+					<%= link_to "Manage Manual Wheelchairs", wheelchairs_path, class: "btn btn-primary btn-lg" %>
 					<%= link_to "Manage Power Wheelchairs", root_path, class: "btn btn-primary btn-lg" %>
 					<%= link_to "Manage Mattresses", root_path, class: "btn btn-primary btn-lg" %>
 					<%= link_to "Manage Other Equipment", root_path, class: "btn btn-primary btn-lg" %>

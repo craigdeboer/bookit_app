@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   get    'signup'  => 'users#new'
+
+  get    'wheelchair_search' => 'wheelchairs#search'
   resources :users do
     resources :bookings
   end

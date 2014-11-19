@@ -1,7 +1,14 @@
 class WheelchairsController < ApplicationController
 
 	def index
-		@wheelchair = Wheelchair.all
+		if params[:wheelchair_search]
+		# @wheelchair = Wheelchair.where("model_type in (?) AND width in (?) AND depth in (?)", ["Breezy 600", "Myon"], [16, 18])
+
+			@wheelchair = search_prep(params[:wheelchair_search], "wheelchair")		
+			render 'index'
+		else
+			@wheelchair = Wheelchair.all #if there are no search params then show all wheelchairs
+		end
 	end
 
 	def new
@@ -37,6 +44,9 @@ class WheelchairsController < ApplicationController
 		flash[:success] = "#{wheelchair.manufacturer} #{wheelchair.model} has been deleted."
 		wheelchair.destroy
 		redirect_to wheelchairs_path
+	end
+
+	def search
 	end
 
 	private
