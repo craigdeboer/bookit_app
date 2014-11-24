@@ -153,7 +153,53 @@ footer ul li {
 	text-decoration: underline;
 }
 
+//* Booking Calendar Styling *//
 
+#month {
+	text-align: center;
+	margin: auto;
+	margin-bottom: 25px;
+}
+
+#booking-calendar {
+	margin-left: 15%;
+	th, td {
+		border: 1px solid #999;		
+	}
+	th {
+		height: 25px;
+		width: 10%;
+		text-align: center;
+	}
+	td {
+		height: 70px;
+		vertical-align: top;
+		text-align: center;
+	}
+}
+.notmonth {
+	background-color: #C9CFD1;
+}
+.today {
+	background-color: #D3DFD0;
+}
+.booked {
+	background-color: #FAB4AC;
+}
+.proposed {
+	background-color: #82D47B;
+}
+.message {
+	margin-left: 15%;
+}
+.bookit {
+	margin-right: 50px;
+}
+.text-center {
+	text-align: center;
+	margin: auto;
+	margin-bottom: 25px;
+}
 
 
 

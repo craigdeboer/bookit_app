@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
+  put 'booking' => 'bookings#update'
+  post 'wheelchair_booking_create' => 'bookings#create'
+  delete 'delete_booking' => 'bookings#destroy'
+  patch 'update_user_booking' => 'bookings#update'
+
   get    'signup'  => 'users#new'
 
   get    'wheelchair_search' => 'wheelchairs#search'

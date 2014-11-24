@@ -1,13 +1,31 @@
-<h1>This page will show the user's bookings</h1>
-
-<% @bookings.each do |booking| %>
-	<% bookable = booking.bookable_type.constantize.find(booking.bookable_id) %>
-	<%= bookable.manufacturer %>
-	<%= bookable.model_type %>
-	<%= bookable.serial_number %>
-	<%= booking.start_date %>
-	<%= booking.end_date %>
-	<%= link_to "delete booking", [bookable, booking], method: :delete %>
-	<br>
-
-<% end %>
+<p>Note: the user should only be able to delete their current and future bookings, not past ones. Past bookings can be used as a measure of how much equipment is being used and should only be deleted by admin. Admin should only be able to delete historic bookings and maybe old bookings should only be kept for a year and then automatically purged.</p>
+<h2 class="text-center">Current Bookings</h2>
+<div class="container">
+<table class="col-md-12">
+	<tr class="row">
+		<th class="col-md-2">Manufacturer</th>
+		<th class="col-md-1">Model</th>
+		<th class="col-md-1">Width</th>
+		<th class="col-md-1">Depth</th>
+		<th class="col-md-2">Start Date</th>
+		<th class="col-md-2">End Date</th>
+		<th class="col-md-1"></th>
+		<th class="col-md-1"></th>
+		<th class="col-md-1"></th>
+	</tr>
+	<% @bookings.each do |booking| %>
+	<tr class="row">
+		<% bookable = booking.bookable_type.constantize.find(booking.bookable_id) %>
+		<td class="col-md-2"><%= bookable.manufacturer %></td>
+		<td class="col-md-1"><%= bookable.model_type %></td>
+		<td class="col-md-1"><%= bookable.width %></td>
+		<td class="col-md-1"><%= bookable.depth %></td>
+		<td class="col-md-2"><%= booking.start_date.strftime("%b. %e, %Y") %></td>
+		<td class="col-md-2"><%= booking.end_date.strftime("%b. %e, %Y") %></td>
+		<td class="col-md-1"><%= link_to "details", [bookable, booking], method: :delete %></td>
+		<td class="col-md-1"><%= link_to "delete", delete_booking_path(id: booking.id), method: :delete, data: {confirm: "Are you sure?" } %></td>
+		<td class="col-md-1"><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: booking.bookable_type, (booking.bookable_type.downcase + "_id").to_sym => booking.bookable_id) %></td>
+	</tr>
+	<% end %>
+</table>
+</div>
