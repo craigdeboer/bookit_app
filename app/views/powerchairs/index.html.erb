@@ -1,0 +1,41 @@
+
+
+<table id="powerchairs">
+	<thead>
+		<tr>
+			<th class="hidden-xs">Manufacturer</th>
+			<th>Model</th>
+			<th>Drive Wheel</th>
+			<th class="hidden-xs">Color</th>
+			<th class="hidden-xs">Inventory Tag</th>
+			<th>Serial Number</th>
+			<th></th>
+			<% if admin? %>
+				<th></th>
+				<th></th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody>
+		<% @powerchair.each do |pc| %>
+			<tr>
+				<td class="hidden-xs"><%= pc.manufacturer %></td>
+				<td><%= pc.model_type %></td>
+				<td><%= pc.drive %></td>
+				<td class="hidden-xs"><%= pc.color %></td>
+				<td class="hidden-xs"><%= pc.inventory_tag %></td>
+				<td><%= pc.serial_number %></td>
+				<td><%= link_to "View/ Book", new_powerchair_booking_path(pc), class: "btn btn-primary btn-sm" %></td>
+				<% if admin? %>
+					<td><%= link_to "edit", edit_powerchair_path(pc) %></td>
+					<td><%= link_to "delete", pc, method: :delete, data: { confirm: "You sure?"} %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<% if admin? %>
+	<div class="container-fluid row">
+	<%= link_to "Add New Power Chair", new_powerchair_path, class: "btn btn-primary col-xs-3 col-xs-offset-1" %>
+	</div>
+<% end %>

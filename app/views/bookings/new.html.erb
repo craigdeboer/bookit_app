@@ -39,12 +39,14 @@
 	<% end %>
 </table>
 <div class="message">
+	<% bookit_link = session[:bookable] + "_booking_path(end_date: end_date, start_date: start_date)" %>
+	<% edit_link = "new_" + session[:bookable] + "_booking_path(date: @date)" %>
 	<% if start_date && end_date %>
 		<h3>Your proposed dates are shown in green above.</h3>
 		<h3>Click 'Book It' button below to book this equipement for these dates</h3>
 		<h3>or click 'Edit Booking'.</h3>
-		<%= link_to "Book It", wheelchair_booking_create_path(end_date: end_date, start_date: start_date), method: :post, class: "btn btn-primary btn-lg bookit" %>
-		<%= link_to "Edit Booking Dates", new_wheelchair_booking_path(date: @date), method: :get, class: "btn btn-primary" %>
+		<%= link_to "Book It", create_booking_path(end_date: end_date, start_date: start_date), method: :post, class: "btn btn-primary btn-lg bookit" %>
+		<%= link_to "Edit Booking Dates", {date: @date}, method: :get, class: "btn btn-primary" %>
 	<% elsif start_date %>
 		<h3>Please choose an available End Date for your trial.</h3>
 	<% else %>

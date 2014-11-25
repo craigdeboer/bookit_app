@@ -1,0 +1,13 @@
+<h1>This is the edit mattress form.</h1>
+
+<%= simple_form_for @mattress do |f| %>
+ 
+ 	<%= f.input :id, as: :hidden %>
+	<%= f.input :manufacturer %>
+	<%= f.input :model_type, label: "Model" %>
+	<%= f.input :size %>
+	<%= f.input :color %>
+	<%= f.input :inventory_tag %>
+	<%= f.input :serial_number %>
+	<%= f.submit "Edit Mattress" %>
+<% end %>

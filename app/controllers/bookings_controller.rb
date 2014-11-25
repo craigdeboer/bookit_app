@@ -5,7 +5,11 @@ class BookingsController < ApplicationController
   # Route for this action for users is user_bookings_path
   def index
     if logged_in?
-      @bookings = current_user.bookings.order(bookable_type: :desc, bookable_id: :asc)
+      @wheelchairs = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Wheelchair", Date.today).order(end_date: :desc)
+      @powerchairs = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Powerchair", Date.today).order(end_date: :desc)
+      @scooters = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Scooter", Date.today).order(end_date: :desc)
+      @mattresses = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Mattress", Date.today).order(end_date: :desc)
+      @others = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Other", Date.today).order(end_date: :desc)
     else
       redirect_to root_path
     end
@@ -61,9 +65,8 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
-    item = @booking.bookable_type
     @booking.destroy
-    flash[:success] = "The #{item} booking has been deleted."
+    flash[:success] = "The booking has been deleted."
     redirect_to user_bookings_path(current_user.id)
   end
 

@@ -1,0 +1,2 @@
+module MattressesHelper
+end

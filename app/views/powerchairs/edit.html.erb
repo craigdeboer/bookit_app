@@ -1,0 +1,13 @@
+<h1>This is the edit powerchair form.</h1>
+
+<%= simple_form_for @powerchair do |f| %>
+ 
+ 	<%= f.input :id, as: :hidden %>
+	<%= f.input :manufacturer %>
+	<%= f.input :model_type, label: "Model" %>
+	<%= f.input :drive, label: "Drive Wheel", collection: ["Mid", "Rear", "Front"] %>
+	<%= f.input :color %>
+	<%= f.input :inventory_tag %>
+	<%= f.input :serial_number %>
+	<%= f.submit "Edit Power Chair" %>
+<% end %>

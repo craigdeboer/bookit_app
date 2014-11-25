@@ -1,0 +1,9 @@
+<h1>This is the new other form.</h1>
+
+<%= simple_form_for @other do |f| %>
+	<%= f.input :manufacturer %>
+	<%= f.input :model_type, label: "Model" %>
+	<%= f.input :inventory_tag %>
+	<%= f.input :description %>
+	<%= f.submit "Other" %>
+<% end %>

@@ -1,0 +1,13 @@
+<h1>This is the edit scooter form.</h1>
+
+<%= simple_form_for @scooter do |f| %>
+ 
+ 	<%= f.input :id, as: :hidden %>
+	<%= f.input :manufacturer %>
+	<%= f.input :model_type, label: "Model" %>
+	<%= f.input :wheels, label: "Wheels", collection: ["3", "4"] %>
+	<%= f.input :color %>
+	<%= f.input :inventory_tag %>
+	<%= f.input :serial_number %>
+	<%= f.submit "Edit Scooter" %>
+<% end %>

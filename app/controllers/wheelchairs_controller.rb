@@ -5,7 +5,7 @@ class WheelchairsController < ApplicationController
 		# @wheelchair = Wheelchair.where("model_type in (?) AND width in (?) AND depth in (?)", ["Breezy 600", "Myon"], [16, 18])
 
 			@wheelchair = search_prep(params[:wheelchair_search], "wheelchair")		
-			render 'index'
+			# render 'index'
 		else
 			@wheelchair = Wheelchair.all #if there are no search params then show all wheelchairs
 		end
@@ -32,7 +32,7 @@ class WheelchairsController < ApplicationController
 	def update
 		@wheelchair = Wheelchair.find(params[:wheelchair][:id])
 		if @wheelchair.update_attributes(wheelchair_params)
-			flash[:success] = "#{@wheelchair.manufacturer} #{@wheelchair.model} was updated successfully."
+			flash[:success] = "#{@wheelchair.manufacturer} #{@wheelchair.model_type} was updated successfully."
 			redirect_to wheelchairs_path
 		else
 			render 'edit'
@@ -41,7 +41,7 @@ class WheelchairsController < ApplicationController
 
 	def destroy
 		wheelchair = Wheelchair.find(params[:id])
-		flash[:success] = "#{wheelchair.manufacturer} #{wheelchair.model} has been deleted."
+		flash[:success] = "#{wheelchair.manufacturer} #{wheelchair.model_type} has been deleted."
 		wheelchair.destroy
 		redirect_to wheelchairs_path
 	end

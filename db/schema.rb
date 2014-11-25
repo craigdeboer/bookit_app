@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029164429) do
+ActiveRecord::Schema.define(version: 20141125214345) do
 
   create_table "bookings", force: true do |t|
     t.date     "start_date"
@@ -24,6 +24,47 @@ ActiveRecord::Schema.define(version: 20141029164429) do
   end
 
   add_index "bookings", ["user_id"], name: "index_bookings_on_user_id", using: :btree
+
+  create_table "mattresses", force: true do |t|
+    t.string   "manufacturer"
+    t.string   "model_type"
+    t.string   "size"
+    t.string   "inventory_tag"
+    t.string   "serial_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "others", force: true do |t|
+    t.string   "manufacturer"
+    t.string   "model_type"
+    t.string   "inventory_tag"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "powerchairs", force: true do |t|
+    t.string   "manufacturer"
+    t.string   "model_type"
+    t.string   "drive"
+    t.string   "color"
+    t.string   "inventory_tag"
+    t.string   "serial_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "scooters", force: true do |t|
+    t.string   "manufacturer"
+    t.string   "model_type"
+    t.string   "wheels"
+    t.string   "color"
+    t.string   "inventory_tag"
+    t.string   "serial_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

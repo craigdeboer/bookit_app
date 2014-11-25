@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   put 'booking' => 'bookings#update'
-  post 'wheelchair_booking_create' => 'bookings#create'
+  post 'create_booking' => 'bookings#create'
+
   delete 'delete_booking' => 'bookings#destroy'
   patch 'update_user_booking' => 'bookings#update'
 
@@ -21,6 +22,18 @@ Rails.application.routes.draw do
   end
   resources :wheelchairs do
     resources :bookings, :defaults => { bookable: "wheelchair" }
+  end
+  resources :powerchairs do
+    resources :bookings, :defaults => { bookable: "powerchair" }
+  end
+  resources :scooters do
+    resources :bookings, :defaults => { bookable: "scooter" }
+  end
+  resources :mattresses do
+    resources :bookings, :defaults => { bookable: "mattress" }
+  end
+  resources :others do
+    resources :bookings, :defaults => { bookable: "other" }
   end
 
 

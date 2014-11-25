@@ -1,31 +1,146 @@
 <p>Note: the user should only be able to delete their current and future bookings, not past ones. Past bookings can be used as a measure of how much equipment is being used and should only be deleted by admin. Admin should only be able to delete historic bookings and maybe old bookings should only be kept for a year and then automatically purged.</p>
 <h2 class="text-center">Current Bookings</h2>
+
+
 <div class="container">
+<h3 class="index-sub">Wheelchairs</h3>
 <table class="col-md-12">
 	<tr class="row">
 		<th class="col-md-2">Manufacturer</th>
 		<th class="col-md-1">Model</th>
-		<th class="col-md-1">Width</th>
-		<th class="col-md-1">Depth</th>
+		<th class="col-md-2">Size</th>
 		<th class="col-md-2">Start Date</th>
 		<th class="col-md-2">End Date</th>
 		<th class="col-md-1"></th>
 		<th class="col-md-1"></th>
-		<th class="col-md-1"></th>
-	</tr>
-	<% @bookings.each do |booking| %>
+	</tr>	
+	<% @wheelchairs.each do |booking| %>
 	<tr class="row">
-		<% bookable = booking.bookable_type.constantize.find(booking.bookable_id) %>
-		<td class="col-md-2"><%= bookable.manufacturer %></td>
-		<td class="col-md-1"><%= bookable.model_type %></td>
-		<td class="col-md-1"><%= bookable.width %></td>
-		<td class="col-md-1"><%= bookable.depth %></td>
-		<td class="col-md-2"><%= booking.start_date.strftime("%b. %e, %Y") %></td>
-		<td class="col-md-2"><%= booking.end_date.strftime("%b. %e, %Y") %></td>
-		<td class="col-md-1"><%= link_to "details", [bookable, booking], method: :delete %></td>
+		<%  @wheelchair = Wheelchair.find(booking.bookable_id) %>
+		<td class="col-md-2"><%= @wheelchair.manufacturer %></td>
+		<td class="col-md-1"><%= @wheelchair.model_type %></td>
+		<td class="col-md-2"><%= @wheelchair.width %> X <%= @wheelchair.depth %></td>
+		<td class="col-md-2"><%= booking.start_date.strftime("%b. %e") %></td>
+		<td class="col-md-2"><%= booking.end_date.strftime("%b. %e") %></td>
+		<td class="col-md-1"><%= link_to "details", [@wheelchair, booking], method: :delete %></td>
 		<td class="col-md-1"><%= link_to "delete", delete_booking_path(id: booking.id), method: :delete, data: {confirm: "Are you sure?" } %></td>
-		<td class="col-md-1"><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: booking.bookable_type, (booking.bookable_type.downcase + "_id").to_sym => booking.bookable_id) %></td>
+		<td class="col-md-1"><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: "wheelchair", wheelchair_id: booking.bookable_id) %></td>
 	</tr>
 	<% end %>
 </table>
 </div>
+<div class="container">
+<h3 class="index-sub">Power Chairs</h3>
+<table class="col-md-12">
+	<tr class="row">
+		<th class="col-md-2">Manufacturer</th>
+		<th class="col-md-1">Model</th>
+		<th class="col-md-2">Serial Number</th>
+		<th class="col-md-2">Start Date</th>
+		<th class="col-md-2">End Date</th>
+		<th class="col-md-1"></th>
+		<th class="col-md-1"></th>
+	</tr>	
+	<% @powerchairs.each do |booking| %>
+	<tr class="row">
+		<%  @powerchair = Powerchair.find(booking.bookable_id) %>
+		<td class="col-md-2"><%= @powerchair.manufacturer %></td>
+		<td class="col-md-1"><%= @powerchair.model_type %></td>
+		<td class="col-md-2"><%= @powerchair.serial_number %></td>
+		<td class="col-md-2"><%= booking.start_date.strftime("%b. %e") %></td>
+		<td class="col-md-2"><%= booking.end_date.strftime("%b. %e") %></td>
+		<td class="col-md-1"><%= link_to "details", [@powerchair, booking], method: :delete %></td>
+		<td class="col-md-1"><%= link_to "delete", delete_booking_path(id: booking.id), method: :delete, data: {confirm: "Are you sure?" } %></td>
+		<td class="col-md-1"><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: "powerchair", powerchair_id: booking.bookable_id) %></td>
+	</tr>
+	<% end %>
+</table>
+</div>
+
+</div>
+<div class="container">
+<h3 class="index-sub">Scooters</h3>
+<table class="col-md-12">
+	<tr class="row">
+		<th class="col-md-2">Manufacturer</th>
+		<th class="col-md-1">Model</th>
+		<th class="col-md-2">Wheels</th>
+		<th class="col-md-2">Start Date</th>
+		<th class="col-md-2">End Date</th>
+		<th class="col-md-1"></th>
+		<th class="col-md-1"></th>
+	</tr>	
+	<% @scooters.each do |booking| %>
+	<tr class="row">
+		<%  @scooter = Scooter.find(booking.bookable_id) %>
+		<td class="col-md-2"><%= @scooter.manufacturer %></td>
+		<td class="col-md-1"><%= @scooter.model_type %></td>
+		<td class="col-md-2"><%= @scooter.wheels %></td>
+		<td class="col-md-2"><%= booking.start_date.strftime("%b. %e") %></td>
+		<td class="col-md-2"><%= booking.end_date.strftime("%b. %e") %></td>
+		<td class="col-md-1"><%= link_to "details", [@scooter, booking], method: :delete %></td>
+		<td class="col-md-1"><%= link_to "delete", delete_booking_path(id: booking.id), method: :delete, data: {confirm: "Are you sure?" } %></td>
+		<td class="col-md-1"><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: "scooter", scooter_id: booking.bookable_id) %></td>
+	</tr>
+	<% end %>
+</table>
+</div>
+
+</div>
+<div class="container">
+<h3 class="index-sub">Mattresses</h3>
+<table class="col-md-12">
+	<tr class="row">
+		<th class="col-md-2">Manufacturer</th>
+		<th class="col-md-1">Model</th>
+		<th class="col-md-2">Size</th>
+		<th class="col-md-2">Start Date</th>
+		<th class="col-md-2">End Date</th>
+		<th class="col-md-1"></th>
+		<th class="col-md-1"></th>
+	</tr>	
+	<% @mattresses.each do |booking| %>
+	<tr class="row">
+		<%  @mattress = Mattress.find(booking.bookable_id) %>
+		<td class="col-md-2"><%= @mattress.manufacturer %></td>
+		<td class="col-md-1"><%= @mattress.model_type %></td>
+		<td class="col-md-2"><%= @mattress.size %></td>
+		<td class="col-md-2"><%= booking.start_date.strftime("%b. %e") %></td>
+		<td class="col-md-2"><%= booking.end_date.strftime("%b. %e") %></td>
+		<td class="col-md-1"><%= link_to "details", [@mattress, booking], method: :delete %></td>
+		<td class="col-md-1"><%= link_to "delete", delete_booking_path(id: booking.id), method: :delete, data: {confirm: "Are you sure?" } %></td>
+		<td class="col-md-1"><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: "mattress", mattress_id: booking.bookable_id) %></td>
+	</tr>
+	<% end %>
+</table>
+</div>
+
+</div>
+<div class="container">
+<h3 class="index-sub">Other Equipment</h3>
+<table class="col-md-12">
+	<tr class="row">
+		<th class="col-md-2">Manufacturer</th>
+		<th class="col-md-1">Model</th>
+		<th class="col-md-2">Inventory Tag</th>
+		<th class="col-md-2">Start Date</th>
+		<th class="col-md-2">End Date</th>
+		<th class="col-md-1"></th>
+		<th class="col-md-1"></th>
+	</tr>	
+	<% @others.each do |booking| %>
+	<tr class="row">
+		<%  @other = Other.find(booking.bookable_id) %>
+		<td class="col-md-2"><%= @other.manufacturer %></td>
+		<td class="col-md-1"><%= @other.model_type %></td>
+		<td class="col-md-2"><%= @other.inventory_tag %></td>
+		<td class="col-md-2"><%= booking.start_date.strftime("%b. %e") %></td>
+		<td class="col-md-2"><%= booking.end_date.strftime("%b. %e") %></td>
+		<td class="col-md-1"><%= link_to "details", [@other, booking], method: :delete %></td>
+		<td class="col-md-1"><%= link_to "delete", delete_booking_path(id: booking.id), method: :delete, data: {confirm: "Are you sure?" } %></td>
+		<td class="col-md-1"><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: "other", other_id: booking.bookable_id) %></td>
+	</tr>
+	<% end %>
+</table>
+</div>
+
