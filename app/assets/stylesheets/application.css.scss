@@ -37,8 +37,54 @@ body {
 
 /* Header */
 
+// Navbar as a whole
+.navbar {
+	height: 100px;
+	background-color: #428bca;
+}
 
+// Logo 
+#logo {
+	padding-top: 35px;
+	height: 90px;
+	font-size: 2.75em;
+	background-color: #428bca;
+	color: #fff;
+	&:hover {
+		color: #fff;
+	}
+}
 
+// Collapsed button on small devices
+button.navbar-toggle {
+	margin-top: 25px;
+	height: 50px;
+}
+
+// Links shown after hitting button above on small devices
+.navbar-collapse {
+	margin-top: 10px;
+	border: none;
+}
+
+// Navigation links on right side of header
+#this {
+	font-size: 1.75em;
+	padding-top: 10px;
+	a {
+		color: #fff;
+		background-color: #428bca;
+	}
+}
+
+// Provides margin between the header and subsequent page content
+#after-header {
+	margin-top: 50px;
+}
+
+//******** Home Page **********//
+
+// "Please Log In" message if not logged in
 .jumbotron {
 	text-align: center;
 	background-color: #FFF;
@@ -47,57 +93,156 @@ body {
 	}
 }
 
+// Buttons that link to user/admin actions
 .home-links a {
-	font-size: 1.25em;
+	font-size: 1.50em;
 	display: block;
 	margin-bottom: 25px;
 
 }
 
 
-.navbar-header {
-	margin-top: 10px;
+
+// Dropdown buttons for user and admin respectively
+#dropdownMenu1, #dropdownMenu2 {
+	font-size: 1.5em;
 }
 
-.navbar-inverse {
-	background-color: #428bca;
-}
-
-#logo {
-	font-size: 1.7em;
-	background-color: #428bca;
-	color: #fff;
-	&:hover {
-		color: #000;
+// Dropdown menu boxes
+#admin-dropdown, #users-dropdown {
+	margin-top: 50px;
+	border: solid 3px #3071A9;
+	li a {
+		margin-bottom: 5px;
+		color: #3071A9;
 	}
 }
 
-
-#header-links {
-	font-size: 1.25em;
-	padding-top: 10px;
-	a {
-		color: #fff;
-		background-color: #428bca;
-	}
-}
-
-#after-header {
-	padding-top: 100px;
-}
-
+// Div that displays if the user is admin
 .admin-options {
 	border-top: 1px solid #999;
-	p {
+	margin-top: 50px;
+	h2 {
 		padding-top: 10px;
 		padding-bottom: 10px;
 		font-size: 1.5em;
 		text-align: center;
+		color: #3071A9;
 	}
 }
 
-footer {
+
+//******* Users Index Page ***********//
+
+#users-index {
+	th, td {
+		text-align: center;
+	}
+}
+
+//******* New User Form ********//
+
+.form-field {
+	margin-bottom: 10px;
+	font-size: 1.25em;
+	p {
+		font-weight: bold;
+	}
+}
+
+#admin-radio {
+	padding-left: 50px;
+}
+
+
+
+
+
+//******* Form Error Message **********//
+
+#error-explanation {
+	font-size: 1.25em;
+	margin-bottom: 20px;
+	ul {
+		list-style: none;
+	}
+}
+
+.equipment-form, .user-form {
+	.field_with_errors { 
+		label {
+			color: red;
+		}
+		input {
+			border-color: red;
+		}
+	}
+}
+
+
+
+
+//******** Wheelchairs Index Page ********************//
+
+#wheelchairs {
+	th, td {
+		text-align: center;
+	}
+}
+
+
+
+//******** Wheelchairs Search Form ***************//
+
+#wc-search-form {
+	font-size: 1.25em;
+
+}
+
+.checkbox-select {
+	label {
+		margin-left: 50px;
+	}
+	p {
+		font-size: 1.3em;
+		text-decoration: underline;
+	}
+	}
+
+
+//********* Users Index Page ****************//
+
+#users-index {
+	th, td {
+		font-size: 1.25em;
+	}
+}
+
+//******** Booking Index Page ************//
+
+.booking-index {
+	margin-left: 20px;
+	th {
+		font-size: 1.25em;
+		width: 10%;
+	}
+	td {
+		font-size: 1.25em;
+	}
+	.wider-column {
+		width: 20%
+	}
+	.table-subheading {
+		font-size: 1.5em;
+		text-decoration: underline;
+		height: 50px;
+	}
+}
+
+#site-footer {
 	margin-top: 150px;
+	height: 100px;
+	display: block;
 	border-top: 1px solid #999;
 }
 footer small {
@@ -127,18 +272,11 @@ footer ul li {
 	}
 }
 
-.new-user {
-	padding-left: 100px;
-}
 
-#admin-question {
-	font-size: 1em;
-	font-weight: bold;
-}
 
-.admin-user-select {
-	margin-left: 30px;
-}
+
+
+
 
 #advanced-search {
 	margin-bottom: 15px;
@@ -148,21 +286,17 @@ footer ul li {
 	margin-bottom: 20px;
 }
 
-.search-heading {
-	font-size: 1.3em;
-	text-decoration: underline;
-}
+
 
 //* Booking Calendar Styling *//
 
 #month {
-	text-align: center;
-	margin: auto;
+	margin-left: 30px;
 	margin-bottom: 25px;
 }
 
 #booking-calendar {
-	margin-left: 15%;
+	margin-left: 10px;
 	th, td {
 		border: 1px solid #999;		
 	}
@@ -186,9 +320,10 @@ footer ul li {
 .booked {
 	background-color: #FAB4AC;
 }
-.proposed {
+.proposed, .start_date {
 	background-color: #82D47B;
 }
+
 .message {
 	margin-left: 15%;
 }

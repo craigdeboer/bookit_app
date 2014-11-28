@@ -1,9 +1,11 @@
-<h1>This is the new other form.</h1>
 
-<%= simple_form_for @other do |f| %>
-	<%= f.input :manufacturer %>
-	<%= f.input :model_type, label: "Model" %>
-	<%= f.input :inventory_tag %>
-	<%= f.input :description %>
-	<%= f.submit "Other" %>
-<% end %>
+<div class="container equipment-form">
+	<div class="row"> 
+		<div class="col-xs-12 col-md-6 col-md-offset-2">
+			<%= simple_form_for @other, defaults: { wrapper_html: { class: 'row form-field'}, label_html: { class: 'col-xs-6' }, input_html: { class: 'col-xs-6' }, error: false } do |f| %>
+				<%= render 'fields', f: f %>
+				<%= f.submit "Add Equipment", class: "row btn btn-primary btn-lg col-xs-6 col-xs-offset-2" %>
+			<% end %>
+		</div>
+	</div>
+</div>

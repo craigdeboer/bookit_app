@@ -1,7 +1,13 @@
-<h1>Please Log In.</h1>
 
-<%= simple_form_for(:session, url: login_path) do |f| %>
-	<%= f.input :name %>
-	<%= f.input :password %>
-	<%= f.submit "Log In" %>
-<% end %>
+
+<div class="container user-form">
+	<div class="row"> 
+		<div class="col-xs-12 col-md-6 col-md-offset-2">
+			<%= simple_form_for :session, url: login_path, defaults: { wrapper_html: { class: 'row form-field'}, label_html: { class: 'col-xs-4' }, input_html: { class: 'col-xs-6' }, error: false } do |f| %>
+				<%= f.input :name %>
+				<%= f.input :password %>
+				<%= f.submit "Log In", class: "row btn btn-primary btn-lg col-xs-6 col-xs-offset-2" %>
+			<% end %>
+		</div>
+	</div>
+</div>

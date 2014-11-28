@@ -2,26 +2,23 @@
 <% start_date = @booking.start_date %>
 <% end_date = @booking.end_date %>
 <% booked_dates = find_bookings(@bookings) %> <!--returns a hash of booked dates and the associated user for each booked date.-->
-<% proposed_dates = (start_date..end_date).to_a if end_date %>
-<h2 id="month">
-    <%= link_to "<", {date: @date.prev_month, start_date: start_date, end_date: end_date  } %>
-    <%= @date.strftime("%B %Y") %>
-    <%= link_to ">", {date: @date.next_month, start_date: start_date, end_date: end_date } %>
-</h2>
+<% proposed_dates = end_date ? (start_date..end_date).to_a : [1, start_date] %>
+
+<%= render 'month', date: @date, start_date: start_date, end_date: end_date %>
 
 <table id="booking-calendar">
 	<%= render 'days' %>
 	<% array_of_weeks.map do |week| %>
 		<tr>
 			<% week.map do |date| %>
-				<%= content_tag :td, class: day_classes(date, @date, booked_dates, proposed_dates) do %>
+				<%= content_tag :td, class: day_classes(date, @date, booked_dates, proposed_dates, start_date) do %>
 					<%= date.day %>
 					<br>
 					<% if booked_dates.member?(date) %>
 						<p>Booked</p>
 						<%= booked_dates.fetch(date) %> <!--fetches the identity of the user that booked the equipment on that date.-->
 					<% else %>
-						<% if date >= Date.today %>
+						<% if date >= Date.today && date.month == @date.month %>
 							<% if start_date == nil %> 
 								<%= link_to "Start Date", {date: @date, start_date: date} %>
 							<% elsif end_date == nil && valid_end_date?(date, start_date, @bookings) %>
@@ -43,11 +40,12 @@
 	<% edit_link = "new_" + session[:bookable] + "_booking_path(date: @date)" %>
 	<% if start_date && end_date %>
 		<h3>Your proposed dates are shown in green above.</h3>
-		<h3>Click 'Book It' button below to book this equipement for these dates</h3>
+		<h3>Click 'Book It' button below to book this equipment for these dates</h3>
 		<h3>or click 'Edit Booking'.</h3>
 		<%= link_to "Book It", create_booking_path(end_date: end_date, start_date: start_date), method: :post, class: "btn btn-primary btn-lg bookit" %>
-		<%= link_to "Edit Booking Dates", {date: @date}, method: :get, class: "btn btn-primary" %>
+		<%= link_to "Edit Booking Dates", {date: @date}, method: :get, class: "btn btn-primary btn-lg" %>
 	<% elsif start_date %>
+		<h3>Your Start Date is shown in green.</h3>
 		<h3>Please choose an available End Date for your trial.</h3>
 	<% else %>
 	  <h3>Please choose an available Start Date for your trial.</h3>

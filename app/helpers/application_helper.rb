@@ -27,3 +27,5 @@ module ApplicationHelper
 		@equipment
 	end
 end
+
+

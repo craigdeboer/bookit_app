@@ -1,13 +1,11 @@
-<h1>Add a new user.</h1>
-<div class="new-user">
-<%= simple_form_for @user do |f| %>
-	<%= f.input :name %>
-	<%= f.input :initials %>
-	<%= f.input :email %>
-	<%= f.input :password %>
-	<%= f.input :password_confirmation, label: "Confirmation" %>
-	<p id="admin-question">Do you want this user to have admin priviledges?</p>
-	<%= f.input :admin, label: false, as: :radio_buttons, wrapper_html: { class: "admin-user-select" } %>
-	<%= f.button :submit, "Create User" %>
-<% end %>
+
+<div class="container user-form">
+	<div class="row"> 
+		<div class="col-xs-12 col-md-6 col-md-offset-2">
+			<%= simple_form_for @user, defaults: { wrapper_html: { class: 'row form-field'}, label_html: { class: 'col-xs-6' }, input_html: { class: 'col-xs-6' }, error: false } do |f| %>
+				<%= render 'fields', f: f %>
+				<%= f.submit "Add User", class: "row btn btn-primary btn-lg col-xs-6 col-xs-offset-2" %>
+			<% end %>
+		</div>
+	</div>
 </div>

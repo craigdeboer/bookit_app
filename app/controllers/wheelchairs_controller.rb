@@ -11,6 +11,10 @@ class WheelchairsController < ApplicationController
 		end
 	end
 
+	def show
+		@wheelchair = Wheelchair.find(params[:id])
+	end
+
 	def new
 		@wheelchair = Wheelchair.new
 	end
@@ -18,7 +22,7 @@ class WheelchairsController < ApplicationController
 	def create
 		@wheelchair = Wheelchair.new(wheelchair_params)
 		if @wheelchair.save
-			flash[:success] = "#{@wheelchair.manufacturer} #{@wheelchair.model} was successfully added!"
+			flash[:success] = "#{@wheelchair.manufacturer} #{@wheelchair.model_type} was successfully added!"
 			redirect_to new_wheelchair_path
 		else 
 			render 'new'

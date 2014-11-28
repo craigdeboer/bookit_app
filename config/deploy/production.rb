@@ -8,6 +8,10 @@ role :app, %w{craig@162.243.139.99}
 role :web, %w{craig@162.243.139.99}
 role :db,  %w{craig@162.243.139.99}
 
+# role :app, %w{craig@104.131.152.152}
+# role :web, %w{craig@104.131.152.152}
+# role :db,  %w{craig@104.131.152.152}
+
 
 # Extended Server Syntax
 # ======================

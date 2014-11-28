@@ -26,9 +26,29 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:user][:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "#{@user.name} has been edited."
+      redirect_to users_path
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    @user = User.find(params[:id])
+    name = @user.name
+    if @user == current_user
+      flash[:notice] = "You can't delete yourself."
+    else 
+      @user.destroy
+      flash[:success] = "#{name} has been deleted."
+    end
+    redirect_to users_path
   end
 
   private

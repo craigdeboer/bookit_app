@@ -2,14 +2,9 @@ class BookingsController < ApplicationController
 
   before_filter :determine_bookable_item, only: [:new]
 
-  # Route for this action for users is user_bookings_path
   def index
     if logged_in?
-      @wheelchairs = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Wheelchair", Date.today).order(end_date: :desc)
-      @powerchairs = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Powerchair", Date.today).order(end_date: :desc)
-      @scooters = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Scooter", Date.today).order(end_date: :desc)
-      @mattresses = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Mattress", Date.today).order(end_date: :desc)
-      @others = current_user.bookings.where("bookable_type = ? AND end_date >= ?", "Other", Date.today).order(end_date: :desc)
+      @bookings = current_user.bookings.where("end_date >= ?", Date.today).order(bookable_type: :desc, start_date: :asc)
     else
       redirect_to root_path
     end
@@ -17,12 +12,12 @@ class BookingsController < ApplicationController
 
   def new
   	@booking = Booking.new
+    session_delete if params[:bookable] && session[:bookable] #Clears the session variables if user exited an earlier new booking process without creating it
     session_store(params[:bookable], @bookable.id) unless session[:bookable_id]
     @bookings = @bookable.bookings.all
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @booking.start_date = params[:start_date] ? Date.parse(params[:start_date]) : nil
     @booking.end_date = params[:end_date] ? Date.parse(params[:end_date]) : nil
-
   end
 
   def create
@@ -44,15 +39,16 @@ class BookingsController < ApplicationController
     if params[:booking]
       @bookable = params[:booking][:bookable].classify.constantize.find(params[:booking][:id])
     else
-      determine_bookable_item
+      @bookable = determine_bookable_item
+      session.delete(:check)
     end
     @booking = @bookable.bookings.find(params[:id])
     @date = params[:date] ? Date.parse(params[:date]) : @booking.start_date
     @bookings = @bookable.bookings.all
     session[:check] = params[:booking][:check] if params[:booking]
     @proposed = Booking.new
-    @proposed.start_date = params[:booking] ? Date.parse(params[:booking][:start_date]) : Date.today
-    @proposed.end_date = params[:booking] ? Date.parse(params[:booking][:end_date]) : Date.today 
+    @proposed.start_date = params[:booking] ? Date.parse(params[:booking][:start_date]) : nil
+    @proposed.end_date = params[:booking] ? Date.parse(params[:booking][:end_date]) : nil
   end
 
   def update

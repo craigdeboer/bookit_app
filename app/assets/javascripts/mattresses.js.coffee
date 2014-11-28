@@ -3,4 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->	
-    $('#mattresses').dataTable()
+    $('#mattresses').dataTable( {
+    	"columnDefs": [ { "targets": [-1,-2,-3,-4,-5], "orderable": false } 
+    	]
+    });

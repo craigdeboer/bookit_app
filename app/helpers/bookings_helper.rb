@@ -68,15 +68,18 @@ module BookingsHelper
 		valid_end_date_array = (start_date..last_valid_end_date).to_a
 	end
 
-	def day_classes(day, date, booked_dates, proposed_dates)
+	def day_classes(day, date, booked_dates, proposed_dates, start_date)
 		classes = []
-		if proposed_dates != nil
-			classes << "proposed" if proposed_dates.include?(day)
-		end
-		classes << "booked" if booked_dates.include?(day)
- 	  classes << "today" if day == Date.today
 	  classes << "notmonth" if day.month != date.month
-	  classes << "available" if day > Date.today
+	  if day.month == date.month
+			if proposed_dates != nil
+				classes << "proposed" if proposed_dates.include?(day)
+			end
+			classes << "start_date" if start_date == day
+			classes << "booked" if booked_dates.include?(day)
+	 	  classes << "today" if day == Date.today
+		  classes << "available" if day > Date.today
+		end
 	  classes.empty? ? nil : classes.join(" ")
 	end
 

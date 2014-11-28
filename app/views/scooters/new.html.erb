@@ -1,11 +1,11 @@
-<h1>This is the new scooter form.</h1>
 
-<%= simple_form_for @scooter do |f| %>
-	<%= f.input :manufacturer %>
-	<%= f.input :model_type, label: "Model" %>
-	<%= f.input :wheels, label: "Wheels", collection: ["4", "3"] %>
-	<%= f.input :color %>
-	<%= f.input :inventory_tag %>
-	<%= f.input :serial_number %>
-	<%= f.submit "Scooter" %>
-<% end %>
+<div class="container equipment-form">
+	<div class="row"> 
+		<div class="col-xs-12 col-md-6 col-md-offset-2">
+			<%= simple_form_for @scooter, defaults: { wrapper_html: { class: 'row form-field'}, label_html: { class: 'col-xs-6' }, input_html: { class: 'col-xs-6' }, error: false } do |f| %>
+				<%= render 'fields', f: f %>
+				<%= f.submit "Add Scooter", class: "row btn btn-primary btn-lg col-xs-6 col-xs-offset-2" %>
+			<% end %>
+		</div>
+	</div>
+</div>
