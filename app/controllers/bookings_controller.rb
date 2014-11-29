@@ -40,15 +40,19 @@ class BookingsController < ApplicationController
       @bookable = params[:booking][:bookable].classify.constantize.find(params[:booking][:id])
     else
       @bookable = determine_bookable_item
-      session.delete(:check)
+      session.delete(:check) unless params[:date]
     end
-    @booking = @bookable.bookings.find(params[:id])
+    @booking = Booking.find(params[:id])
     @date = params[:date] ? Date.parse(params[:date]) : @booking.start_date
     @bookings = @bookable.bookings.all
     session[:check] = params[:booking][:check] if params[:booking]
     @proposed = Booking.new
     @proposed.start_date = params[:booking] ? Date.parse(params[:booking][:start_date]) : nil
     @proposed.end_date = params[:booking] ? Date.parse(params[:booking][:end_date]) : nil
+    if params[:date]
+      @proposed.start_date = params[:start_date]
+      @proposed.end_date = params[:end_date]
+    end
   end
 
   def update
