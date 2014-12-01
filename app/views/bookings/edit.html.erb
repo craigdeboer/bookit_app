@@ -47,33 +47,45 @@
 
 
 
-
-
-<% if session[:check] == nil || !conflicting_dates.empty? %>
-	<% if !conflicting_dates.empty? %>
-		<p>There is a conflict. The following dates are not available:</p>
-		<% conflicting_dates.each do |date| %>
-	  	<%= date %>
+<div id="edit-booking" class="container" >
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+			<% if session[:check] == nil || !conflicting_dates.empty? %>
+			<div class="row" id="conflict">
+				<% if !conflicting_dates.empty? %>			
+					<p  class="col-xs-12">There is a conflict. The following dates are not available:</p>
+					<% conflicting_dates.each do |date| %>
+					<div class="row">
+	  				<span class="col-xs-4 col-xs-offset-4"><%= date %></span>
+	  			</div>
+				<% end %>
+			</div>
+			<% end %>
+			<%= form_for :booking, url: edit_user_booking_path, method: :get do |f| %>
+			<%= f.hidden_field :bookable, value: @booking.bookable_type %>
+			<%= f.hidden_field :id, value: @booking.bookable_id %>
+			<%= f.hidden_field :check, value: true %>
+			<div class="row" id="change-date">
+				<%= f.date_field :start_date, class: "col-xs-4 col-xs-offset-4" %>
+			</div>
+			<div class="row">
+				<%= f.date_field :end_date, class: "col-xs-4 col-xs-offset-4" %>
+			</div>
+			<div class="row">
+				<%= f.submit "Check Dates", class: "btn btn-primary btn-lg col-xs-4 col-xs-offset-4" %>
+			</div>
+			<% end %>
+		<% elsif session[:check] && conflicting_dates.empty? %>
+			<div class="row">
+				<%= link_to "Change Dates", update_user_booking_path(booking: { start_date: @proposed.start_date, end_date: @proposed.end_date}, id: @booking.id), method: :patch, class: "btn btn-primary btn-lg col-xs-4 col-xs-offset-4" %>
+			</div>
 		<% end %>
-	<% end %>
-	<%= form_for :booking, url: edit_user_booking_path, method: :get do |f| %>
-	<%= f.hidden_field :bookable, value: @booking.bookable_type %>
-	<%= f.hidden_field :id, value: @booking.bookable_id %>
-	<%= f.hidden_field :check, value: true %>
-	<%= f.date_field :start_date %>
-	<%= f.date_field :end_date %>
-	<%= f.submit "Check Dates" %>
-	<% end %>
-<% elsif session[:check] && conflicting_dates.empty? %>
-	<%= link_to "Change Dates", update_user_booking_path(booking: { start_date: @proposed.start_date, end_date: @proposed.end_date}, id: @booking.id), method: :patch, class: "btn btn-primary btn-lg" %>
-<% end %>
+		</div>
+	</div>
+</div>
+
 
 
  
 
 
-# THIS WORKS!!!! Just write the check_dates function and then 
-# replace "let's submit this bitch" with another link to the 
-# update action where it will update the booking and reset the 
-# session variable (delete it). Also implement dumbed down version 
-# of the calendar above the form so user can see available dates.

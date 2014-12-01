@@ -45,6 +45,8 @@ body {
 
 // Logo 
 #logo {
+	position: relative;
+	z-index: 2;
 	padding-top: 35px;
 	height: 90px;
 	font-size: 2.75em;
@@ -63,8 +65,20 @@ button.navbar-toggle {
 
 // Links shown after hitting button above on small devices
 .navbar-collapse {
+	padding-top: 10px;
+
+}
+
+#header-links {
 	margin-top: 10px;
-	border: none;
+	position: relative !important;
+	z-index: 1;
+}
+
+#header-dropdown {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	font-size: .75em;
 }
 
 // Navigation links on right side of header
@@ -220,14 +234,38 @@ button.navbar-toggle {
 
 //******** Booking Index Page ************//
 
+#book-equipment {
+	border: none;
+}
+#headingOne {
+	a {
+		color: #FFF;
+		font-size: 1.5em;
+	}
+}
+
+#collapseOne {
+	li {
+		list-style: none;
+		a {
+			font-size: 1.5em;
+			color: #FFF;
+		}
+	}
+	.option {
+		margin-bottom: 5px;
+	}
+}
+
+
 .booking-index {
 	margin-left: 20px;
 	th {
-		font-size: 1.25em;
+		font-size: 1.5em;
 		width: 10%;
 	}
 	td {
-		font-size: 1.25em;
+		font-size: 1.5em;
 	}
 	.wider-column {
 		width: 20%
@@ -291,22 +329,23 @@ footer ul li {
 //* Booking Calendar Styling *//
 
 #month {
-	margin-left: 30px;
+	text-align: center;
+	margin: auto;
 	margin-bottom: 25px;
 }
 
 #booking-calendar {
-	margin-left: 10px;
+	margin-left: 15%;
 	th, td {
 		border: 1px solid #999;		
 	}
 	th {
 		height: 25px;
-		width: 10%;
+		width: 11%;
 		text-align: center;
 	}
 	td {
-		height: 70px;
+		height: 80px;
 		vertical-align: top;
 		text-align: center;
 	}
@@ -324,17 +363,38 @@ footer ul li {
 	background-color: #82D47B;
 }
 
-.message {
+#message {
 	margin-left: 15%;
 }
 .bookit {
-	margin-right: 50px;
+	margin-top: 25px;
 }
 .text-center {
 	text-align: center;
 	margin: auto;
 	margin-bottom: 25px;
 }
+
+//********* Edit Booking Calendar Styling ****************//
+
+#edit-booking {
+	margin-top: 25px;
+	input {
+		margin-bottom: 15px;
+		margin-top: 15px;
+	}
+}
+
+#conflict {
+	font-size: 2em;
+	color: red;
+}
+
+
+
+
+
+
 
 //* Current bookings (Bookings Index) *//
 
