@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get    'signup'  => 'users#new'
 
   get    'wheelchair_search' => 'wheelchairs#search'
+
+  post 'import_powerchairs' => 'powerchairs#import'
+  
   resources :users do
     resources :bookings
   end

@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
 
+  before_action :require_login
   before_filter :determine_bookable_item, only: [:new]
 
   def index
@@ -72,6 +73,13 @@ class BookingsController < ApplicationController
 
 private
 
+  def require_login
+    unless logged_in?
+      flash[:info] = "You must be logged in to visit this page. Please log in."
+      redirect_to login_path
+    end
+  end
+
   def booking_params
     params.require(:booking).permit(:start_date, :end_date)
   end
@@ -98,15 +106,7 @@ private
 
 
 
-  # def start_date_formatter(params)
-  #   start_date = [params['start_date(1i)'], params['start_date(2i)'], params['start_date(3i)']].join("-") 
-  # end
-
-  # def end_date_formatter(params)
-  #   end_date = [params['end_date(1i)'], params['end_date(2i)'], params['end_date(3i)']].join("-") 
-  # end
-    
-
+  
 
 
 end

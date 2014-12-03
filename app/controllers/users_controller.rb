@@ -68,7 +68,7 @@ class UsersController < ApplicationController
       unless admin?
         flash[:info] = "You must have administration priviledges to access the page you requested"
         if logged_in?
-          redirect_to current_user
+          redirect_to root_path
         else
           redirect_to login_path
         end

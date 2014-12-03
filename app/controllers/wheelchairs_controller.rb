@@ -1,5 +1,8 @@
 class WheelchairsController < ApplicationController
 
+	before_action :require_login
+  before_action :require_admin, only: [:new, :create, :edit, :destroy]
+
 	def index
 		if params[:wheelchair_search]
 		# @wheelchair = Wheelchair.where("model_type in (?) AND width in (?) AND depth in (?)", ["Breezy 600", "Myon"], [16, 18])
@@ -23,7 +26,7 @@ class WheelchairsController < ApplicationController
 		@wheelchair = Wheelchair.new(wheelchair_params)
 		if @wheelchair.save
 			flash[:success] = "#{@wheelchair.manufacturer} #{@wheelchair.model_type} was successfully added!"
-			redirect_to new_wheelchair_path
+			redirect_to wheelchairs_path
 		else 
 			render 'new'
 		end
@@ -58,6 +61,24 @@ class WheelchairsController < ApplicationController
 		def wheelchair_params
 			params.require(:wheelchair).permit(:manufacturer, :model_type, :width, :depth, :color, :inventory_tag, :serial_number)
 		end
+
+		def require_login
+      unless logged_in?
+        flash[:info] = "You must be logged in to visit this page. Please log in."
+        redirect_to login_path
+      end
+    end
+
+    def require_admin
+      unless admin?
+        flash[:info] = "You must have administration privileges to access the page you requested"
+        if logged_in?
+          redirect_to root_path
+        else
+          redirect_to login_path
+        end
+      end
+    end
 
 
 end

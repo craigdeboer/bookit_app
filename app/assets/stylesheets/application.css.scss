@@ -234,17 +234,21 @@ button.navbar-toggle {
 
 //******** Booking Index Page ************//
 
-#book-equipment {
+#book-equipment, #manage-equipment {
 	border: none;
 }
-#headingOne {
+#headingOne, #headingTwo {
+	padding-top: 0px;
+	padding-bottom: 0px;
 	a {
 		color: #FFF;
 		font-size: 1.5em;
 	}
 }
 
-#collapseOne {
+#collapseOne, #collapseTwo {
+	padding-left: 15px;
+	padding-right: 15px;
 	li {
 		list-style: none;
 		a {

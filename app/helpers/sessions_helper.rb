@@ -46,7 +46,7 @@ module SessionsHelper
 	  		log_in user
 	  		@current_user = user
 	  	else
-	  		@current_user = nil
+	  		logout
 	  	end
 	  end
 	end
