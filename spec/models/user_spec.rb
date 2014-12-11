@@ -78,8 +78,5 @@ RSpec.describe User, :type => :model do
     @user.password_confirmation = "notfoobar"
     expect(@user).not_to be_valid
   end
-
-  
-
   
 end

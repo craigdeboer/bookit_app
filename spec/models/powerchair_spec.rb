@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Powerchair, :type => :model do
 
-	before { @powerchair = Powerchair.new(manufacturer: "Pride", model_type: "Q6 Edge", drive: "Mid", inventory_tag: "Pri Q6edge", serial_number: "pri002514") }
+	before do
+    @powerchair = Powerchair.new(manufacturer: "Pride", model_type: "Q6 Edge", drive: "Mid", inventory_tag: "Pri Q6edge", serial_number: "pri002514") 
+    @user = create(:user)
+  end
 
 	it "should have the right attributes" do
   	expect(@powerchair).to respond_to(:manufacturer, :model_type, :drive, :color, :inventory_tag, :serial_number)
@@ -35,6 +38,12 @@ RSpec.describe Powerchair, :type => :model do
   	@powerchair.serial_number = ""
   	@powerchair.valid?
   	expect(@powerchair.errors[:serial_number]).to include("can't be blank")
+  end
+
+  it "will be bookable" do
+    @powerchair.save
+    booking = @powerchair.bookings.new(start_date: "2014-12-12", end_date: "2014-12-14", user_id: @user.id)
+    expect(booking).to be_valid
   end
 
 end

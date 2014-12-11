@@ -111,7 +111,6 @@ button.navbar-toggle {
 .home-links a {
 	font-size: 1.50em;
 	display: block;
-	margin-bottom: 25px;
 
 }
 
@@ -234,12 +233,9 @@ button.navbar-toggle {
 
 //******** Booking Index Page ************//
 
-#book-equipment, #manage-equipment {
-	border: none;
-}
 #headingOne, #headingTwo {
-	padding-top: 0px;
-	padding-bottom: 0px;
+	// background-color: #FFF;
+	margin-bottom: 10px;
 	a {
 		color: #FFF;
 		font-size: 1.5em;

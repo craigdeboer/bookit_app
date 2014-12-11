@@ -3,10 +3,8 @@ require 'rails_helper'
 RSpec.describe Wheelchair, :type => :model do
   
   before do
-  	@wheelchair = Wheelchair.new(manufacturer: "Sunrise", model_type: "Quickie 2",
-  															 width: 18, depth: 16, color: "Black",
-  															 inventory_tag: "SUN Quickie 2",
-  															 serial_number: "Q2-120524")
+  	@wheelchair = build(:wheelchair)
+    @user = create(:user)
   end
 
   it "should have the right attributes" do
@@ -46,6 +44,12 @@ RSpec.describe Wheelchair, :type => :model do
   it "is invalid with blank serial number" do
     @wheelchair.serial_number = ""
     expect(@wheelchair).not_to be_valid
+  end
+
+  it "will be bookable" do
+    @wheelchair.save
+    booking = @wheelchair.bookings.new(start_date: "2014-12-12", end_date: "2014-12-14", user_id: @user.id)
+    expect(booking).to be_valid
   end
 
   

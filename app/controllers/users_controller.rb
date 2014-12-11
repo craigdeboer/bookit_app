@@ -1,14 +1,13 @@
 class UsersController < ApplicationController
 
   before_action :require_login
-  before_action :require_admin, only: [:index, :create, :edit, :destroy]
+  before_action :require_admin, only: [:index, :new, :create, :edit, :destroy]
 
   def index
     @user = User.all
   end
 
   def show
-    @user = current_user
   end
 
   def new
@@ -19,7 +18,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "New user, #{@user.name}, was successfully created."
-      redirect_to "/"
+      redirect_to users_path
     else 
       render 'new'
     end
@@ -54,26 +53,8 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :initials, :email, :password, :password_confirmation)
+      params[:user].delete :admin unless current_user.try(:admin?)
+      params.require(:user).permit(:name, :initials, :email, :password, :password_confirmation, :admin)
     end
-
-    def require_login
-      unless logged_in?
-        flash[:info] = "You must be logged in to visit this page. Please log in."
-        redirect_to login_path
-      end
-    end
-
-    def require_admin
-      unless admin?
-        flash[:info] = "You must have administration priviledges to access the page you requested"
-        if logged_in?
-          redirect_to root_path
-        else
-          redirect_to login_path
-        end
-      end
-    end
-
 end
 

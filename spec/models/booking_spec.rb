@@ -42,27 +42,52 @@ RSpec.describe Booking, :type => :model do
     expect(@booking.errors[:end_date]).to include("can't be blank")
   end
 
-  describe "polymorphic association with bookable items" do
+  describe "associations" do
     before do
-      @user = User.create(name: "Peter Puck", initials: "PPP", email: "ppuck@gmail.com", password: "foobar", password_confirmation: "foobar")
-      @powerchair = Powerchair.create(manufacturer: "Pride", model_type: "Q6 Edge", drive: "Mid", inventory_tag: "Pri Q6edge", serial_number: "pri002514")
-      @new_booking = @powerchair.bookings.build(start_date: "2014-12-04", end_date: "2014-12-06", user_id: @user.id)
+      @user = create(:user)
+      @powerchair = create(:powerchair)
+      @wheelchair = create(:wheelchair)
+      @new_booking1 = @powerchair.bookings.build(start_date: "2014-12-12", end_date: "2014-12-14", user_id: @user.id)
+      @new_booking2 = @wheelchair.bookings.create(start_date: "2014-12-12", end_date: "2014-12-14", user_id: @user.id)
+      @bookings = @user.bookings.all
     end
 
-    it "will be valid with a bookable item" do
-      @new_booking.valid?
-      expect(@new_booking).to be_valid
+    context "with the bookable item models" do
+
+      it "will be valid with a bookable item" do
+        @new_booking1.valid?
+        expect(@new_booking1).to be_valid
+      end
+      it "will have the right bookable type" do
+        expect(@new_booking1.bookable_type).to eq("Powerchair")
+      end
+      it "will have the right bookable_id" do
+        expect(@new_booking1.bookable_id).to eq(@powerchair.id)
+      end
+      it "will be invalid without a bookable type" do
+        @new_booking1.bookable_type = nil
+        @new_booking1.valid?
+        expect(@new_booking1).to_not be_valid
+      end
+      it "will be invalid without a bookable id" do
+        @new_booking1.bookable_id = nil
+        @new_booking1.valid?
+        expect(@new_booking1).to_not be_valid
+      end
+      it "will be invalid without an associated user" do
+        @new_booking1.user_id = nil
+        @new_booking1.valid?
+        expect(@new_booking1).to_not be_valid
+      end
     end
 
-    it "will have the right bookable type" do
-      expect(@new_booking.bookable_type).to eq("Powerchair")
+    context "with the user model" do
+      describe "the @bookings array" do
+        it "will contain both of the new bookings" do
+          @new_booking1.save
+          expect(@bookings).to match_array([@new_booking1, @new_booking2])
+        end
+      end
     end
-
-    it "will have the right bookable_id" do
-      expect(@new_booking.bookable_id).to eq(@powerchair.id)
-    end
-  end
-
-
-
+  end  
 end

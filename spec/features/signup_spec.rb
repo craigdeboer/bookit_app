@@ -3,28 +3,34 @@ require 'rails_helper'
 describe "Signing up new user" do
 
 	before do
-		@user = User.create(name: "Champ", initials: "CSB", email: "champ@gmail.com", password: "foobar", password_confirmation: "foobar", admin: true)
+		@user = create(:admin_user)
 		visit login_path
-		fill_in "Name", with: "Champ"
+		fill_in "Name", with: @user.name
 		fill_in "Password", with: "foobar"
 		click_button "Log In"
-		visit signup_path
+		click_link "Home"
+		click_link "Manage Users"
+		click_link "Add New User"
+
 	end
 
-	describe "with invalid information" do
-		it "should not create a new user" do	
-			expect{ click_button "Create User" }.not_to change{User.count}
+	context "with invalid information" do
+		it "does not add a new user to the database" do	
+			expect{ click_button "Add User" }.to_not change{User.count}
 		end
 	end
 
-	describe "with valid information" do
-		it "should create a new user" do	
+	context "with valid information" do
+		it "adds a new user to the database" do	
 			fill_in "Name", with: "Foo Bar"
 			fill_in "Initials", with: "FRB"
 			fill_in "Email", with: "Foo@gmail.com"
 			fill_in "Password", with: "buzzle"
 			fill_in "Confirmation", with: "buzzle"
-			expect { click_button "Create User"	}.to change{User.count}.by(1)
+			expect { click_button "Add User"	}.to change{User.count}.by(1)
 		end
 	end
+
+	
+
 end

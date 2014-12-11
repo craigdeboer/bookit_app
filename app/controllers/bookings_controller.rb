@@ -1,20 +1,16 @@
 class BookingsController < ApplicationController
 
   before_action :require_login
-  before_filter :determine_bookable_item, only: [:new]
+  before_filter :determine_bookable_item, only: [:new, :create]
 
   def index
-    if logged_in?
-      @bookings = current_user.bookings.where("end_date >= ?", Date.today).order(bookable_type: :desc, start_date: :asc)
-    else
-      redirect_to root_path
-    end
+    @bookings = current_user.bookings.where("end_date >= ?", Date.today).order(bookable_type: :desc, start_date: :asc)
   end
 
   def new
   	@booking = Booking.new
-    session_delete if params[:bookable] && session[:bookable] #Clears the session variables if user exited an earlier new booking process without creating it
-    session_store(params[:bookable], @bookable.id) unless session[:bookable_id]
+    # session_delete if params[:bookable] && session[:bookable] #Clears the session variables if user exited an earlier new booking process without creating it
+    # session_store(params[:bookable], @bookable.id) unless session[:bookable_id]
     @bookings = @bookable.bookings.all
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @booking.start_date = params[:start_date] ? Date.parse(params[:start_date]) : nil
@@ -22,28 +18,30 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @bookable = session[:bookable].classify.constantize.find(session[:bookable_id])
+    # @bookable = session[:bookable].classify.constantize.find(session[:bookable_id])
     @booking = @bookable.bookings.new
     @booking.start_date = params[:start_date]
     @booking.end_date = params[:end_date]
     @booking.user_id = current_user.id
-    session_delete
+    # session_delete
     if @booking.save
       flash[:success] = "Equipment was successfully booked"
-      redirect_to root_path
+      render 'index'
     else
-      redirect_to wheelchair_search_path
+      redirect_to root_path
     end
   end
 
   def edit
-    if params[:booking]
-      @bookable = params[:booking][:bookable].classify.constantize.find(params[:booking][:id])
-    else
-      @bookable = determine_bookable_item
+    # if params[:booking]
+    #   @bookable = params[:booking][:bookable].classify.constantize.find(params[:booking][:id])
+    # else
+    #   @bookable = determine_bookable_item
+    if !params[:date] && !params[:booking]
       session.delete(:check) unless params[:date]
     end
     @booking = Booking.find(params[:id])
+    @bookable = @booking.bookable_type.classify.constantize.find(@booking.bookable_id)
     @date = params[:date] ? Date.parse(params[:date]) : @booking.start_date
     @bookings = @bookable.bookings.all
     session[:check] = params[:booking][:check] if params[:booking]
@@ -58,10 +56,13 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.update(booking_params)
-    flash[:success] = "Booking date changed successfully"
-    session.delete(:check)
-    redirect_to user_bookings_path(current_user.id)
+    if @booking.update(booking_params)
+      flash[:success] = "Booking date changed successfully"
+      session.delete(:check)
+      redirect_to user_bookings_path(current_user.id)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -72,13 +73,6 @@ class BookingsController < ApplicationController
   end
 
 private
-
-  def require_login
-    unless logged_in?
-      flash[:info] = "You must be logged in to visit this page. Please log in."
-      redirect_to login_path
-    end
-  end
 
   def booking_params
     params.require(:booking).permit(:start_date, :end_date)
@@ -92,15 +86,15 @@ private
     (params[:bookable].downcase.singularize + "_id").to_sym
   end
 
-  def session_store(bookable_param, bookable_id)
-    session[:bookable] = bookable_param
-    session[:bookable_id] = bookable_id
-  end
+  # def session_store(bookable_param, bookable_id)
+  #   session[:bookable] = bookable_param
+  #   session[:bookable_id] = bookable_id
+  # end
 
-  def session_delete
-    session.delete(:bookable)
-    session.delete(:bookable_id)
-  end
+  # def session_delete
+  #   session.delete(:bookable)
+  #   session.delete(:bookable_id)
+  # end
 
 
 

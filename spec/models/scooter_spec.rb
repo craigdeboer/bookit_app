@@ -7,6 +7,7 @@ RSpec.describe Scooter, :type => :model do
   												 wheels: "4 wheel", color: "Black",
   												 inventory_tag: "inv peg4wh",
   												 serial_number: "inv-4125")
+    @user = create(:user)
   end
 
   it "should have the right attributes" do
@@ -40,6 +41,12 @@ RSpec.describe Scooter, :type => :model do
   it "is invalid with blank serial number" do
     @scooter.serial_number = ""
     expect(@scooter).not_to be_valid
+  end
+
+  it "will be bookable" do
+    @scooter.save
+    booking = @scooter.bookings.new(start_date: "2014-12-12", end_date: "2014-12-14", user_id: @user.id)
+    expect(booking).to be_valid
   end
 
 
