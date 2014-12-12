@@ -204,7 +204,7 @@ context "with a logged in, non-admin user" do
         end
         it "redirects to the other index page" do
           patch :update, id: @other1, other: update
-          expect(response).to render_template :index
+          expect(response).to redirect_to others_path
         end
       end
 
@@ -236,7 +236,7 @@ context "with a logged in, non-admin user" do
       end
       it "renders the other index page" do
         delete :destroy, id: @other1
-        expect(response).to render_template 'index'
+        expect(response).to redirect_to others_path
       end
     end
   end

@@ -19,9 +19,19 @@
 		      		<li class="dropdown">
 			          <a href="#" class="dropdown-toggle" id="user-dropdown" data-toggle="dropdown"><%= current_user.name %><span class="caret"></span></a>
 			          <ul class="dropdown-menu" role="menu" id="header-dropdown">
-			            <li><a href="#">Profile</a></li>
-			            <li><%= link_to "View Your Current Bookings", user_bookings_path(current_user) %></li>
+			            <!-- <li><a href="#">Profile</a></li> -->
+			            <li><%= link_to "Current Bookings", user_bookings_path(current_user) %></li>
 			            <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+			          </ul>
+			        </li>
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" id="booking-dropdown" data-toggle="dropdown">Book Equipment<span class="caret"></span></a>
+			          <ul class="dropdown-menu" role="menu" id="header1-dropdown">
+			            <li><%= link_to "Book Wheelchairs", wheelchairs_path %></li>
+			            <li><%= link_to "Book Powerchairs", powerchairs_path %></li>
+			            <li><%= link_to "Book Scooters", scooters_path %></li>
+			            <li><%= link_to "Book Mattresses", mattresses_path %></li>
+			            <li><%= link_to "Book Other", others_path %></li>
 			          </ul>
 			        </li>
 			      <% else %>

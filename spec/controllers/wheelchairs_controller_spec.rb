@@ -220,7 +220,7 @@ RSpec.describe WheelchairsController, :type => :controller do
         end
         it "redirects to the wheelchair index page" do
           patch :update, id: @wheelchair1, wheelchair: update
-          expect(response).to render_template :index
+          expect(response).to redirect_to wheelchairs_path
         end
       end
 
@@ -252,7 +252,7 @@ RSpec.describe WheelchairsController, :type => :controller do
       end
       it "renders the wheelchair index page" do
         delete :destroy, id: @wheelchair1
-        expect(response).to render_template 'index'
+        expect(response).to redirect_to wheelchairs_path
       end
     end
   end

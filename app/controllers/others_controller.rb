@@ -29,7 +29,7 @@ class OthersController < ApplicationController
 		@other = Other.find(params[:id])
 		if @other.update_attributes(other_params)
 			flash[:success] = "#{@other.manufacturer} #{@other.model_type} was updated successfully."
-			render 'index'
+			redirect_to others_path
 		else
 			render 'edit'
 		end
@@ -39,7 +39,7 @@ class OthersController < ApplicationController
 		@other = Other.find(params[:id])
 		flash[:success] = "#{@other.manufacturer} #{@other.model_type} has been deleted."
 		@other.destroy
-		render 'index'
+		redirect_to others_path
 	end
 
 	private

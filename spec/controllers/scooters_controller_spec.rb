@@ -204,7 +204,7 @@ RSpec.describe ScootersController, :type => :controller do
         end
         it "redirects to the scooter index page" do
           patch :update, id: @scooter1, scooter: update
-          expect(response).to render_template :index
+          expect(response).to redirect_to scooters_path
         end
       end
 
@@ -236,7 +236,7 @@ RSpec.describe ScootersController, :type => :controller do
       end
       it "renders the scooter index page" do
         delete :destroy, id: @scooter1
-        expect(response).to render_template 'index'
+        expect(response).to redirect_to scooters_path
       end
     end
   end

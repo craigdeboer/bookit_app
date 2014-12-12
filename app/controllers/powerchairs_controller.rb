@@ -31,7 +31,7 @@ def edit
 		@powerchair = Powerchair.find(params[:id])
 		if @powerchair.update_attributes(powerchair_params)
 			flash[:success] = "#{@powerchair.manufacturer} #{@powerchair.model_type} was updated successfully."
-			render 'index'
+			redirect_to powerchairs_path
 		else
 			render 'edit'
 		end
@@ -41,7 +41,7 @@ def destroy
 		@powerchair = Powerchair.find(params[:id])
 		flash[:success] = "#{@powerchair.manufacturer} #{@powerchair.model_type} has been deleted."
 		@powerchair.destroy
-		render 'index'
+		redirect_to powerchairs_path
 	end
 
 def import

@@ -29,7 +29,7 @@ class MattressesController < ApplicationController
 		@mattress = Mattress.find(params[:id])
 		if @mattress.update_attributes(mattress_params)
 			flash[:success] = "#{@mattress.manufacturer} #{@mattress.model_type} was updated successfully."
-			render 'index'
+			redirect_to mattresses_path
 		else
 			render 'edit'
 		end
@@ -39,7 +39,7 @@ class MattressesController < ApplicationController
 		@mattress = Mattress.find(params[:id])
 		flash[:success] = "#{@mattress.manufacturer} #{@mattress.model_type} has been deleted."
 		@mattress.destroy
-		render 'index'
+		redirect_to mattresses_path
 	end
 
 	private

@@ -63,7 +63,7 @@ RSpec.describe BookingsController, :type => :controller do
         end
         it "will render the index page" do
           post :create, bookable: "wheelchair", wheelchair_id: @wheelchair.id, start_date: "2014-12-12", end_date: "2014-12-14"
-          expect(response).to render_template :index
+          expect(response).to redirect_to user_bookings_path(@user)
         end  
       end
       context "with invalid attributes" do
@@ -129,11 +129,6 @@ RSpec.describe BookingsController, :type => :controller do
           @booking1.reload
           expect(@booking1.end_date).to_not eq(Date.parse("2014-12-16"))
           expect(@booking1.start_date).to eq(Date.parse("2014-12-12"))
-        end
-        it "should re render the edit page" do
-          update = {end_date: "2014-12-16", start_date: ""}
-          patch :update, id: @booking1.id, booking: update
-          expect(response).to render_template 'edit'
         end
       end
     end

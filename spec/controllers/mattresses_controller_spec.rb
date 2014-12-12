@@ -208,7 +208,7 @@ RSpec.describe MattressesController, :type => :controller do
           end
           it "redirects to the mattress index page" do
             patch :update, id: @mattress1, mattress: update
-            expect(response).to render_template :index
+            expect(response).to redirect_to mattresses_path
           end
         end
 
@@ -240,7 +240,7 @@ RSpec.describe MattressesController, :type => :controller do
         end
         it "renders the mattress index page" do
           delete :destroy, id: @mattress1
-          expect(response).to render_template 'index'
+          expect(response).to redirect_to mattresses_path
         end
       end
     end

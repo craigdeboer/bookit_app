@@ -40,7 +40,7 @@ class WheelchairsController < ApplicationController
 		@wheelchair = Wheelchair.find(params[:id])
 		if @wheelchair.update_attributes(wheelchair_params)
 			flash[:success] = "#{@wheelchair.manufacturer} #{@wheelchair.model_type} was updated successfully."
-			render 'index'
+			redirect_to wheelchairs_path
 		else
 			render 'edit'
 		end
@@ -50,7 +50,7 @@ class WheelchairsController < ApplicationController
 		@wheelchair = Wheelchair.find(params[:id])
 		flash[:success] = "#{@wheelchair.manufacturer} #{@wheelchair.model_type} has been deleted."
 		@wheelchair.destroy
-		render 'index'
+		redirect_to wheelchairs_path
 	end
 
 	def search

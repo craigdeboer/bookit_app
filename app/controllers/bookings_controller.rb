@@ -26,7 +26,7 @@ class BookingsController < ApplicationController
     # session_delete
     if @booking.save
       flash[:success] = "Equipment was successfully booked"
-      render 'index'
+      redirect_to user_bookings_path(current_user)
     else
       redirect_to root_path
     end
@@ -56,13 +56,10 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    if @booking.update(booking_params)
-      flash[:success] = "Booking date changed successfully"
-      session.delete(:check)
-      redirect_to user_bookings_path(current_user.id)
-    else
-      render 'edit'
-    end
+    @booking.update(booking_params)
+    flash[:success] = "Booking date changed successfully"
+    session.delete(:check)
+    redirect_to user_bookings_path(current_user.id)
   end
 
   def destroy

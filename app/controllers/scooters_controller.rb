@@ -29,7 +29,7 @@ class ScootersController < ApplicationController
 		@scooter = Scooter.find(params[:id])
 		if @scooter.update_attributes(scooter_params)
 			flash[:success] = "#{@scooter.manufacturer} #{@scooter.model_type} was updated successfully."
-			render 'index'
+			redirect_to scooters_path
 		else
 			render 'edit'
 		end
@@ -39,7 +39,7 @@ class ScootersController < ApplicationController
 		@scooter = Scooter.find(params[:id])
 		flash[:success] = "#{@scooter.manufacturer} #{@scooter.model_type} has been deleted."
 		@scooter.destroy
-		render 'index'
+		redirect_to scooters_path
 	end
 
 	private

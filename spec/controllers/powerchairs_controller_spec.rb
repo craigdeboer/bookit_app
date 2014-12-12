@@ -204,7 +204,7 @@ RSpec.describe PowerchairsController, :type => :controller do
             end
             it "redirects to the powerchair index page" do
               patch :update, id: @powerchair1, powerchair: update
-              expect(response).to render_template :index
+              expect(response).to redirect_to powerchairs_path
             end
           end
 
@@ -236,7 +236,7 @@ RSpec.describe PowerchairsController, :type => :controller do
           end
           it "renders the powerchair index page" do
             delete :destroy, id: @powerchair1
-            expect(response).to render_template 'index'
+            expect(response).to redirect_to powerchairs_path
           end
         end
       end
