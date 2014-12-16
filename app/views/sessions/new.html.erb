@@ -4,7 +4,7 @@
 			<%= simple_form_for :session, url: login_path, defaults: { wrapper_html: { class: 'row form-field'}, label_html: { class: 'col-xs-4 col-lg-3' }, input_html: { class: 'col-xs-6' }, error: false } do |f| %>
 				<%= f.input :name %>
 				<%= f.input :password %>
-				<%= f.submit "Log In", class: "submit-button row btn btn-primary btn-lg col-xs-6 col-xs-offset-4 col-lg-6 col-lg-offset-3" %>
+				<%= f.submit "Log In", class: "submit-button row btn btn-primary btn-lg col-xs-6 col-xs-offset-4 col-sm-6 col-sm-offset-4" %>
 			<% end %>
 		</div>
 	</div>

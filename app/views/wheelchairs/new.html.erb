@@ -1,9 +1,9 @@
 <div class="container equipment-form">
 	<div class="row"> 
 		<div class="col-xs-12 col-md-6 col-md-offset-3">
-			<%= simple_form_for @wheelchair, defaults: { wrapper_html: { class: 'row form-field'}, label_html: { class: 'col-xs-5 col-lg-3' }, input_html: { class: 'col-xs-6' }, error: false } do |f| %>
+			<%= simple_form_for @wheelchair, defaults: { wrapper_html: { class: 'row form-field'}, label_html: { class: 'col-xs-5 col-sm-4' }, input_html: { class: 'col-xs-6' }, error: false } do |f| %>
 				<%= render 'fields', f: f %>
-				<%= f.submit "Add Wheelchair", class: "submit-button row btn btn-primary btn-lg col-xs-6 col-xs-offset-5 col-lg-6 col-lg-offset-3" %>
+				<%= f.submit "Add Wheelchair", class: "submit-button row btn btn-primary btn-lg col-xs-6 col-xs-offset-5 col-sm-6 col-sm-offset-4" %>
 			<% end %>
 		</div>
 	</div>
