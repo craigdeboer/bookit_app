@@ -1,16 +1,12 @@
 module BookingsHelper
-	def calendar(date)
-		weeks(date)
-	end
-
+	
 	def weeks(date)
 		first_day = date.beginning_of_month.beginning_of_week(:sunday)
 		last_day = date.end_of_month.end_of_week(:sunday)
 		(first_day..last_day).to_a.in_groups_of(7)
 	end
 
-	def find_bookings(bookings)
-		
+	def find_bookings(bookings)	
 		dates_array = []
 		users_array = []
 		bookings.each do |booking|
@@ -46,10 +42,9 @@ module BookingsHelper
 		new_array
 	end
 
-
-	def valid_end_date?(date, start_date, bookings)
-		array_of_valid_end_dates(start_date, bookings).include?(date)
-	end
+	# def valid_end_date?(date, start_date, bookings)
+	# 	array_of_valid_end_dates(start_date, bookings).include?(date)
+	# end
 
 	def array_of_valid_end_dates(start_date, bookings)
 		start_dates = []
@@ -68,7 +63,7 @@ module BookingsHelper
 		valid_end_date_array = (start_date..last_valid_end_date).to_a
 	end
 
-	def day_classes(day, date, booked_dates, proposed_dates, start_date)
+	def day_classes(day, date, booked_dates, proposed_dates, start_date, conflicting_dates)
 		classes = []
 	  classes << "notmonth" if day.month != date.month
 	  if day.month == date.month
@@ -77,6 +72,7 @@ module BookingsHelper
 			end
 			classes << "start_date" if start_date == day
 			classes << "booked" if booked_dates.include?(day)
+			classes << "conflict" if booked_dates.include?(day) && conflicting_dates.include?(day)
 	 	  classes << "today" if day == Date.today
 		  classes << "available" if day > Date.today
 		end

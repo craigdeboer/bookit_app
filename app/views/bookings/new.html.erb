@@ -1,9 +1,12 @@
-<% array_of_weeks = calendar(@date) %>
+<!-- Organize data into variables -->
+<% array_of_weeks = weeks(@date) %>
 <% start_date = @booking.start_date %>
 <% end_date = @booking.end_date %>
-<% booked_dates = find_bookings(@bookings) %> <!--returns a hash of booked dates and the associated user for each booked date.-->
-<% proposed_dates = end_date ? (start_date..end_date).to_a : [1, start_date] %>
 
+<!--returns a hash of booked dates and the associated user for each booked date.-->
+<% booked_dates = find_bookings(@bookings) %> 
+<% proposed_dates = end_date ? (start_date..end_date).to_a : [1, start_date] %>
+<% end_dates_array = array_of_valid_end_dates(start_date, @bookings) if start_date %>
 <%= render 'month', date: @date, start_date: start_date, end_date: end_date %>
 
 <table id="booking-calendar">
@@ -11,22 +14,24 @@
 	<% array_of_weeks.map do |week| %>
 		<tr>
 			<% week.map do |date| %>
-				<%= content_tag :td, class: day_classes(date, @date, booked_dates, proposed_dates, start_date) do %>
+				<%= content_tag :td, class: day_classes(date, @date, booked_dates, proposed_dates, start_date, []) do %>
 					<%= date.day %>
 					<br>
-					<% if booked_dates.member?(date) %>
-						<p>Booked</p>
-						<%= booked_dates.fetch(date) %> <!--fetches the identity of the user that booked the equipment on that date.-->
-					<% else %>
-						<% if date >= Date.today && date.month == @date.month %>
-							<% if start_date == nil %> 
-								<%= link_to "Start Date", {date: @date, start_date: date} %>
-							<% elsif end_date == nil && valid_end_date?(date, start_date, @bookings) %>
-								<%= link_to "End Date", {date: @date, end_date: date, 
-																						 start_date: start_date} %>
-							<% elsif end_date && proposed_dates.include?(date) %>
-								<span>Proposed</span> 
-								<p>Trial Date</p>
+					<% if date.month == @date.month %>
+						<% if booked_dates.member?(date) %>
+							<p>Booked</p>
+							<%= booked_dates.fetch(date) %> <!--fetches the identity of the user that booked the equipment on that date.-->
+						<% else %>
+							<% if date >= Date.today && date.month == @date.month %>
+								<% if start_date == nil %> 
+									<%= link_to "Start Date", {date: @date, start_date: date} %>
+								<% elsif end_date == nil && end_dates_array.include?(date) %>
+									<%= link_to "End Date", {date: @date, end_date: date, 
+																							 start_date: start_date} %>
+								<% elsif end_date && proposed_dates.include?(date) %>
+									<span>Proposed</span> 
+									<p>Trial Date</p>
+								<% end %>
 							<% end %>
 						<% end %>
 					<% end %>
@@ -38,26 +43,16 @@
 <div class="container">
 	<div class="message">
 		<% if start_date && end_date %>
-		<div class="row">
-			<h3 class="col-xs-10 col-xs-offset-1">Your proposed dates are shown in green above.</h3>
-		</div>
-		<div class="row">
-			<h3 class="col-xs-10 col-xs-offset-1">Click 'Book It' button below to book this equipment for these dates or <%= link_to "Edit Booking Dates", {date: @date}, method: :get %>.</h3>
-		</div>
-		<div class="row">
-			<%= link_to "Book It", create_booking_path(end_date: end_date, start_date: start_date, bookable: @bookable.class.name.downcase, (@bookable.class.name.downcase + "_id").to_sym => @bookable.id), method: :post, class: "btn btn-primary btn-lg bookit col-xs-4 col-xs-offset-4" %>
-		</div>
+			<h3 class="center-message">Your proposed dates are shown in green above.</h3>
+			<h3 class="center-message">Click 'Book It' button below to book this equipment for these dates or <%= link_to "Edit Booking Dates", {date: @date}, method: :get %>.</h3>
+			<div class="row">
+				<%= link_to "Book It", create_booking_path(end_date: end_date, start_date: start_date, bookable: @bookable.class.name.downcase, (@bookable.class.name.downcase + "_id").to_sym => @bookable.id), method: :post, class: "btn btn-primary btn-lg col-xs-6 col-xs-offset-3 submit-button" %>
+			</div>
 		<% elsif start_date %>
-			<div class="row">
-				<h3 class="col-xs-10 col-xs-offset-1">Your Start Date is shown in green.</h3>
-			</div>
-			<div class="row">
-				<h3 class="col-xs-10 col-xs-offset-1">Please choose an available End Date for your trial.</h3>
-			</div>
+			<h3 class="center-message">Your Start Date is shown in green.</h3>
+			<h3 class="center-message">Please choose an available End Date for your trial.</h3>
 		<% else %>
-			<div class="row">
-		 		<h3 class="col-xs-10 col-xs-offset-1">Please choose an available Start Date for your trial.</h3>
-			</div>
+	 		<h3 class="center-message">Please choose an available Start Date for your trial.</h3>
 		<% end %>
 	</div>
 </div>

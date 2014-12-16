@@ -7,6 +7,6 @@ FactoryGirl.define do
     width 16
     depth 18
     inventory_tag "Pri Stylus"
-    serial_number "Pri-25142"
+    sequence(:serial_number) { |n| "Pri-#{n}" }
   end
 end

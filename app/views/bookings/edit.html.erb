@@ -1,5 +1,4 @@
-<%= p session[:check] %>
-<% array_of_weeks = calendar(@date) %>
+<% array_of_weeks = weeks(@date) %>
 <% start_date = @booking.start_date %>
 <% end_date = @booking.end_date %>
 <% booked_dates = find_bookings(@bookings) %> <!--returns a hash of booked dates and the associated user for each booked date.-->
@@ -22,11 +21,14 @@
 	<% array_of_weeks.map do |week| %>
 		<tr>
 			<% week.map do |date| %>
-				<%= content_tag :td, class: day_classes(date, @date, booked_dates, proposed_dates, proposed_dates[0]) do %>
+				<%= content_tag :td, class: day_classes(date, @date, booked_dates, proposed_dates, proposed_dates[0], conflicting_dates) do %>
 					<%= date.day %>
 					<br>
 					<% if date.month == @date.month %>
-						<% if booked_dates.member?(date) %>
+					  <% if conflicting_dates.include?(date) %>
+					    <p>Conflict</p>
+					    <%= booked_dates.fetch(date) %>
+						<% elsif booked_dates.member?(date) %>
 							<p>Booked</p>
 							<%= booked_dates.fetch(date) %> <!--fetches the identity of the user that booked the equipment on that date.-->				
 						<% elsif proposed_dates.include?(date) %>
@@ -43,45 +45,34 @@
 		</tr>
 	<% end %>
 </table>
-
-
-
-
 <div id="edit-booking" class="container" >
-	<div class="row">
-		<div class="col-xs-10 col-xs-offset-1">
-			<% if session[:check] == nil || !conflicting_dates.empty? %>
-			<div class="row" id="conflict">
-				<% if !conflicting_dates.empty? %>			
-					<p  class="col-xs-12">There is a conflict. The following dates are not available:</p>
-					<% conflicting_dates.each do |date| %>
-					<div class="row">
-	  				<span class="col-xs-4 col-xs-offset-4"><%= date %></span>
-	  			</div>
+	<% if session[:check] == nil || !conflicting_dates.empty? %>
+		<div id="conflict">
+			<% if !conflicting_dates.empty? %>			
+				<h3  class="center-message">There is a conflict. The following dates are not available:</h3>
+				<% conflicting_dates.each do |date| %>
+					<p class="center-message"><%= date %></p>
 				<% end %>
-			</div>
 			<% end %>
-			<%= form_for :booking, url: edit_user_booking_path, method: :get do |f| %>
-			<%= f.hidden_field :bookable, value: @booking.bookable_type %>
-			<%= f.hidden_field :id, value: @booking.bookable_id %>
-			<%= f.hidden_field :check, value: true %>
-			<div class="row" id="change-date">
-				<%= f.date_field :start_date, class: "col-xs-4 col-xs-offset-4" %>
+		</div>
+		<%= form_for :booking, url: edit_user_booking_path, method: :get do |f| %>
+			<div class="row">
+				<%= f.date_field :start_date, class: "check-date-field col-xs-4 col-xs-offset-4" %>
 			</div>
 			<div class="row">
-				<%= f.date_field :end_date, class: "col-xs-4 col-xs-offset-4" %>
+				<%= f.date_field :end_date, class: "check-date-field col-xs-4 col-xs-offset-4" %>
 			</div>
 			<div class="row">
-				<%= f.submit "Check Dates", class: "btn btn-primary btn-lg col-xs-4 col-xs-offset-4" %>
-			</div>
-			<% end %>
-		<% elsif session[:check] && conflicting_dates.empty? %>
-			<div class="row">
-				<%= link_to "Change Dates", update_user_booking_path(booking: { start_date: @proposed.start_date, end_date: @proposed.end_date}, id: @booking.id), method: :patch, class: "btn btn-primary btn-lg col-xs-4 col-xs-offset-4" %>
+				<%= f.submit "Check Dates", class: "submit-button btn btn-primary btn-lg col-xs-4 col-xs-offset-4" %>
 			</div>
 		<% end %>
+	<% elsif session[:check] && conflicting_dates.empty? %>
+		<h3 class="center-message">Your revised trial dates are fine and are shown in green above.</h3>
+		<h3 class="center-message">Click the "Change Dates" button below or use the back button on your browser to edit.</h3>
+		<div class="row">
+			<%= link_to "Change Dates", update_user_booking_path(booking: { start_date: @proposed.start_date, end_date: @proposed.end_date}, id: @booking.id), method: :patch, class: "submit-button btn btn-primary btn-lg col-xs-4 col-xs-offset-4" %>
 		</div>
-	</div>
+	<% end %>
 </div>
 
 

@@ -44,7 +44,7 @@ class BookingsController < ApplicationController
     @bookable = @booking.bookable_type.classify.constantize.find(@booking.bookable_id)
     @date = params[:date] ? Date.parse(params[:date]) : @booking.start_date
     @bookings = @bookable.bookings.all
-    session[:check] = params[:booking][:check] if params[:booking]
+    session[:check] = true if params[:booking]
     @proposed = Booking.new
     @proposed.start_date = params[:booking] ? Date.parse(params[:booking][:start_date]) : nil
     @proposed.end_date = params[:booking] ? Date.parse(params[:booking][:end_date]) : nil

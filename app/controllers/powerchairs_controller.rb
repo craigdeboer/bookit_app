@@ -24,25 +24,25 @@ def create
 end
 
 def edit
-		@powerchair = Powerchair.find(params[:id])
-	end
+	@powerchair = Powerchair.find(params[:id])
+end
 
-	def update
-		@powerchair = Powerchair.find(params[:id])
-		if @powerchair.update_attributes(powerchair_params)
-			flash[:success] = "#{@powerchair.manufacturer} #{@powerchair.model_type} was updated successfully."
-			redirect_to powerchairs_path
-		else
-			render 'edit'
-		end
+def update
+	@powerchair = Powerchair.find(params[:id])
+	if @powerchair.update_attributes(powerchair_params)
+		flash[:success] = "#{@powerchair.manufacturer} #{@powerchair.model_type} was updated successfully."
+		redirect_to powerchairs_path
+	else
+		render 'edit'
 	end
+end
 
 def destroy
-		@powerchair = Powerchair.find(params[:id])
-		flash[:success] = "#{@powerchair.manufacturer} #{@powerchair.model_type} has been deleted."
-		@powerchair.destroy
-		redirect_to powerchairs_path
-	end
+	@powerchair = Powerchair.find(params[:id])
+	flash[:success] = "#{@powerchair.manufacturer} #{@powerchair.model_type} has been deleted."
+	@powerchair.destroy
+	redirect_to powerchairs_path
+end
 
 def import
 	Powerchair.import(params[:file])

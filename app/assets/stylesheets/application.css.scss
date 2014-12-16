@@ -197,10 +197,14 @@ button.navbar-toggle {
 
 //******** Wheelchairs Index Page ********************//
 
-#wheelchairs {
+#wheelchairs, #mattresses, #powerchairs, #others, #scooters {
 	th, td {
 		text-align: center;
 	}
+}
+
+#advanced-search {
+	margin-bottom: 15px;
 }
 
 
@@ -277,6 +281,18 @@ button.navbar-toggle {
 	}
 }
 
+
+//************** Equipment New and Edit Forms *****************//
+
+.submit-button {
+	font-size: 1.5em;
+	margin-top: 25px;
+}
+
+
+
+
+
 #site-footer {
 	margin-top: 150px;
 	height: 100px;
@@ -316,9 +332,6 @@ footer ul li {
 
 
 
-#advanced-search {
-	margin-bottom: 15px;
-}
 
 #wc-search-form {
 	margin-bottom: 20px;
@@ -335,7 +348,8 @@ footer ul li {
 }
 
 #booking-calendar {
-	margin-left: 15%;
+	margin-left: auto;
+	margin-right: auto;
 	th, td {
 		border: 1px solid #999;		
 	}
@@ -354,7 +368,7 @@ footer ul li {
 	background-color: #C9CFD1;
 }
 .today {
-	background-color: #D3DFD0;
+	background-color: #DCDFE0;
 }
 .booked {
 	background-color: #FAB4AC;
@@ -363,12 +377,17 @@ footer ul li {
 	background-color: #82D47B;
 }
 
+.center-message {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
 #message {
 	margin-left: 15%;
 }
-.bookit {
-	margin-top: 25px;
-}
+
 .text-center {
 	text-align: center;
 	margin: auto;
@@ -385,9 +404,17 @@ footer ul li {
 	}
 }
 
+.conflict {
+	background-color: red;
+}
 #conflict {
 	font-size: 2em;
 	color: red;
+}
+
+.check-date-field {
+	font-size: 1.5em;
+	color: black;
 }
 
 

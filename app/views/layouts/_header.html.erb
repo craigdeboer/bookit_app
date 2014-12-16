@@ -15,6 +15,7 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse home-navs" id="header-links">
 	      <ul class="nav navbar-nav navbar-right" id="this">
+	      	  <!-- If the user is logged in display the user's name with a dropdown menu to the logout and current booking's links -->
 	      		<% if logged_in? %>
 		      		<li class="dropdown">
 			          <a href="#" class="dropdown-toggle" id="user-dropdown" data-toggle="dropdown"><%= current_user.name %><span class="caret"></span></a>
@@ -24,6 +25,7 @@
 			            <li><%= link_to "Log Out", logout_path, method: :delete %></li>
 			          </ul>
 			        </li>
+			        <!-- When the user is logged in also display a dropdown link to all the different equipment booking links -->
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" id="booking-dropdown" data-toggle="dropdown">Book Equipment<span class="caret"></span></a>
 			          <ul class="dropdown-menu" role="menu" id="header1-dropdown">
@@ -38,8 +40,6 @@
 			            <li><%= link_to "Log In", login_path, class: "active" %></li>
 	      		<% end %>
 	      		<li class="active"><a href="/">Home</a></li>
-
-
 				</ul>       
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
