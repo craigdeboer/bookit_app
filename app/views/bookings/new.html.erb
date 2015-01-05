@@ -1,12 +1,22 @@
-<!-- Organize data into variables -->
+<!-- Sets up an array of the days of the @date month in groups of 7 -->
 <% array_of_weeks = weeks(@date) %>
+
+<!-- Assign variables -->
 <% start_date = @booking.start_date %>
 <% end_date = @booking.end_date %>
 
-<!--returns a hash of booked dates and the associated user for each booked date.-->
+<!-- Message indicating what equipment is being booked -->
+<h3 class="center-message">Booking dates for: <%= @bookable.manufacturer %> <%= @bookable.model_type %></h3>
+
+<!-- Returns a hash of booked dates and the associated user for each booked date. -->
 <% booked_dates = find_bookings(@bookings) %> 
-<% proposed_dates = end_date ? (start_date..end_date).to_a : [1, start_date] %>
+
+<!-- If end_date has been set, proposed_dates is assigned an array of the desired dates. If problems arise, the last statement was [1, start_date] but removed the 1 because didn't know why it was there. -->
+<% proposed_dates = end_date ? (start_date..end_date).to_a : [start_date] %>
+
+<!-- If the start_date has been set, an array of valid end_dates is populated. -->
 <% end_dates_array = array_of_valid_end_dates(start_date, @bookings) if start_date %>
+
 <%= render 'month', date: @date, start_date: start_date, end_date: end_date %>
 
 <table id="booking-calendar">
@@ -17,12 +27,16 @@
 				<%= content_tag :td, class: day_classes(date, @date, booked_dates, proposed_dates, start_date, []) do %>
 					<%= date.day %>
 					<br>
+
+					<!-- Only populate table data for days that are part of the current month -->
 					<% if date.month == @date.month %>
 						<% if booked_dates.member?(date) %>
 							<p>Booked</p>
-							<%= booked_dates.fetch(date) %> <!--fetches the identity of the user that booked the equipment on that date.-->
+
+							<!--fetches the identity of the user that booked the equipment on that date.-->
+							<%= booked_dates.fetch(date) %> 
 						<% else %>
-							<% if date >= Date.today && date.month == @date.month %>
+							<% if date >= Date.today %>
 								<% if start_date == nil %> 
 									<%= link_to "Start Date", {date: @date, start_date: date} %>
 								<% elsif end_date == nil && end_dates_array.include?(date) %>

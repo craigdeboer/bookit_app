@@ -32,7 +32,11 @@
 		<% when "Scooter" %>
 			<td><%= @bookable.wheels %></td>
 		<% end %>
-		<td><%= booking.start_date.strftime("%b. %e") %> - <%= booking.end_date.strftime("%b. %e") %></td>
+		<td><%= booking.start_date.strftime("%b. %e") %>
+			<% if booking.start_date != booking.end_date %>
+			  - <%= booking.end_date.strftime("%b. %e") %>
+			<% end %>
+		</td>
 		<td><%= link_to "delete", delete_booking_path(id: booking.id), method: :delete, data: {confirm: "Are you sure?" } %></td>
 		<td><%= link_to "edit", edit_user_booking_path(id: booking.id, bookable: booking.bookable_type, (booking.bookable_type.downcase + "_id").to_sym => booking.bookable_id) %></td>
 		<% type = booking.bookable_type %>

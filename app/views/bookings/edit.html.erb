@@ -1,16 +1,37 @@
+<!-- Sets up an array of the days of the @date month in groups of 7 -->
 <% array_of_weeks = weeks(@date) %>
+
+<!-- Assign variables -->
 <% start_date = @booking.start_date %>
 <% end_date = @booking.end_date %>
-<% booked_dates = find_bookings(@bookings) %> <!--returns a hash of booked dates and the associated user for each booked date.-->
+<% invalid_dates = nil %>
 <% proposed_dates = (start_date..end_date).to_a %>
+<% conflicting_dates = [] %>
+
+<!--returns a hash of booked dates and the associated user for each booked date.-->
+<% booked_dates = find_bookings(@bookings) %> 
+
+<!-- Remove the proposed dates from the booked dates otherwise there will always be a conflict with an existing booking (the booking that is being edited) -->
 <% booked_dates = remove_proposed(booked_dates, proposed_dates) %>
+
+<!-- Returns an array of booked dates without the associated users. -->
 <% booked_dates_array = booked_array(booked_dates) %>
+
+<!-- A session variable is set to true when the user hits the Check Dates button -->
 <% if session[:check] %>
+
+	<!-- Results in an array of conflicting dates -->
 	<% conflicting_dates = booked_dates_array & (@proposed.start_date..@proposed.end_date).to_a %>
-	<% proposed_dates = (@proposed.start_date..@proposed.end_date).to_a %>
-<% else %>
-  <% conflicting_dates = [] %>
+
+	<!-- Ensures end_date is later than start_date. -->
+	<%if @proposed.end_date < @proposed.start_date %>
+		<% invalid_dates = true %>
+	<% else %>
+		<% proposed_dates = (@proposed.start_date..@proposed.end_date).to_a %>
+	<% end %>  
 <% end %>
+
+<h3 class="center-message">Editing dates for: <%= @bookable.manufacturer %> <%= @bookable.model_type %></h3>
 <h2 id="month">
     <%= link_to "<", { date: @date.prev_month, bookable: @booking.bookable_type, (@booking.bookable_type.downcase + "_id").to_sym => @booking.bookable_id, start_date: @proposed.start_date, end_date: @proposed.end_date } %>
     <%= @date.strftime("%B %Y") %>
@@ -30,9 +51,11 @@
 					    <%= booked_dates.fetch(date) %>
 						<% elsif booked_dates.member?(date) %>
 							<p>Booked</p>
-							<%= booked_dates.fetch(date) %> <!--fetches the identity of the user that booked the equipment on that date.-->				
+
+							<!--fetches the identity of the user that booked the equipment on that date.-->	
+							<%= booked_dates.fetch(date) %> 			
 						<% elsif proposed_dates.include?(date) %>
-								<% if session[:check] %>
+								<% if session[:check] && invalid_dates == nil %>
 									<span>Revised</span>
 								<% else %>
 								  <span>Current</span> 
@@ -46,15 +69,18 @@
 	<% end %>
 </table>
 <div id="edit-booking" class="container" >
-	<% if session[:check] == nil || !conflicting_dates.empty? %>
+	<% if session[:check] == nil || !conflicting_dates.empty? || invalid_dates == true %>
 		<div id="conflict">
 			<% if !conflicting_dates.empty? %>			
 				<h3  class="center-message">There is a conflict. The following dates are not available:</h3>
 				<% conflicting_dates.each do |date| %>
 					<p class="center-message"><%= date %></p>
 				<% end %>
+			<% elsif invalid_dates == true %>
+				<p class="center-message">You selected an end date of <%= @proposed.end_date %> which is earlier than your selected start date of <%= @proposed.start_date %>. Please try again.</p>
 			<% end %>
 		</div>
+		<h3 class="center-message">Please adjust the dates below:</h3>
 		<%= form_for :booking, url: edit_user_booking_path, method: :get do |f| %>
 			<div class="row">
 				<%= f.date_field :start_date, class: "check-date-field col-xs-4 col-xs-offset-4" %>
