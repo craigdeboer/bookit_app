@@ -18,6 +18,7 @@ gem 'simple_form', '~> 3.0.2'
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'autoprefixer-rails'
 gem 'roo', '~> 1.13.2'
+gem 'acts_as_tenant'
 
 group :development, :test do
 	gem 'byebug'

@@ -27,6 +27,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_tenant (0.3.7)
+      rails (>= 3.1)
+      request_store (>= 1.0.5)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
     autoprefixer-rails (3.1.2.20141016)
@@ -142,6 +145,7 @@ GEM
     rake (10.3.2)
     rdoc (4.1.2)
       json (~> 1.4)
+    request_store (1.1.0)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -215,6 +219,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_tenant
   autoprefixer-rails
   bcrypt (~> 3.1.7)
   better_errors
