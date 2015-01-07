@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125214345) do
+ActiveRecord::Schema.define(version: 20150106185049) do
+
+  create_table "accounts", force: true do |t|
+    t.string   "name"
+    t.string   "subdomain"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bookings", force: true do |t|
     t.date     "start_date"
@@ -33,6 +40,7 @@ ActiveRecord::Schema.define(version: 20141125214345) do
     t.string   "serial_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "others", force: true do |t|
@@ -42,6 +50,7 @@ ActiveRecord::Schema.define(version: 20141125214345) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "powerchairs", force: true do |t|
@@ -53,6 +62,7 @@ ActiveRecord::Schema.define(version: 20141125214345) do
     t.string   "serial_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "scooters", force: true do |t|
@@ -64,7 +74,10 @@ ActiveRecord::Schema.define(version: 20141125214345) do
     t.string   "serial_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
+
+  add_index "scooters", ["account_id"], name: "index_scooters_on_account_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -75,6 +88,7 @@ ActiveRecord::Schema.define(version: 20141125214345) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_digest"
+    t.integer  "account_id"
   end
 
   create_table "wheelchairs", force: true do |t|
@@ -87,6 +101,9 @@ ActiveRecord::Schema.define(version: 20141125214345) do
     t.string   "serial_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
+
+  add_index "wheelchairs", ["account_id"], name: "index_wheelchairs_on_account_id", using: :btree
 
 end

@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ApplicationHelper
 
+  rescue_from ActsAsTenant::Errors::NoTenantSet, with: :no_subdomain
+
+  set_current_tenant_by_subdomain(:account, :subdomain)
+
   def require_login
     unless logged_in?
       flash[:info] = "You must be logged in to visit this page. Please log in."
@@ -22,4 +26,9 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  private
+    def no_subdomain
+      render "/public/nosubdomain.html", layout: false
+    end
 end

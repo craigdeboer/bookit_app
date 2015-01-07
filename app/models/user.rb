@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 	attr_accessor :remember_token
 
+	acts_as_tenant(:account)
+
 	has_many :bookings
 
 	validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
