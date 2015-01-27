@@ -1,0 +1,27 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-md-9 col-md-offset-1">
+			<table class="table" id="accounts-index">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Subdomain</th>
+						<th>User Limit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @accounts.each do |account| %>
+						<tr>
+							<td><%= account.name %></td>
+							<td><%= account.subdomain %></td>
+							<td><%= account.user_limit %></td>
+							<td><%= link_to "edit", edit_account_path(account) %></td>
+							<td><%= link_to "delete", account_path(account), method: :delete, data: { confirm: "You sure?" } %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>	
+			<%= link_to "Add New Account", new_account_path, class: "row col-xs-6 col-xs-offset-3 btn btn-primary btn-lg" %>
+		</div>
+	</div>
+</div>

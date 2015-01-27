@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     resources :bookings, :defaults => { bookable: "other" }
   end
 
+  resources :accounts
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

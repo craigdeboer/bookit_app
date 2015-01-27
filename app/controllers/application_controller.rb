@@ -27,6 +27,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_superadmin
+    unless super_admin?
+      flash[:info] = "You are not authorized to view the page you requested."
+      redirect_to root_path
+    end
+  end 
+
   private
     def no_subdomain
       render "/public/nosubdomain.html", layout: false

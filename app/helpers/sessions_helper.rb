@@ -67,6 +67,10 @@ module SessionsHelper
 		current_user.admin == true
 	end
 
+	def super_admin?
+		current_user.account_id == 1 && current_user.name == "Craig Deboer"
+	end
+
 	# Logs the user out and sets the value of current user to nil
 	def log_out
 		forget(current_user)
