@@ -3,7 +3,7 @@ namespace :db do
 
 	task accounts: :environment do
 
-		100.times do |n|
+		10.times do |n|
 			account = Account.create!(name: "Placeholder",
 								 subdomain: "Placeholder",
 								 user_limit: 5)

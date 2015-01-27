@@ -1,5 +1,4 @@
-
-
+<div id="pcindex">
 <table id="powerchairs">
 	<thead>
 		<tr>
@@ -34,11 +33,12 @@
 		<% end %>
 	</tbody>
 </table>
+
 <% if admin? %>
 	<div class="container-fluid row">
 	<%= link_to "Add New Power Chair", new_powerchair_path, class: "submit-button btn btn-primary btn-lg col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4" %>
 	</div>
-<% end %>
+
 
 <h3>Import Power Chairs</h3>
 
@@ -46,3 +46,5 @@
   <%= file_field_tag :file, input_html: { class: "btn btn-primary" } %>
   <%= submit_tag "Import", class: "submit-button btn btn-primary" %>
 <% end %>
+<% end %>
+</div>

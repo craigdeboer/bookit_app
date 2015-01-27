@@ -197,6 +197,11 @@ button.navbar-toggle {
 
 //******** Wheelchairs Index Page ********************//
 
+#wcindex, #sindex, #pcindex, #oindex, #mindex {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 #wheelchairs, #mattresses, #powerchairs, #others, #scooters {
 	th, td {
 		text-align: center;
@@ -301,6 +306,7 @@ button.navbar-toggle {
 }
 footer small {
 	padding-top: 10px;
+	padding-left: 10px;
 	color: #888;
 	float: left;
 	p {
