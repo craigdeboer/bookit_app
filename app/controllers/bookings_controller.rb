@@ -8,6 +8,7 @@ class BookingsController < ApplicationController
   end
 
   def new
+    byebug
   	@booking = Booking.new
     # session_delete if params[:bookable] && session[:bookable] #Clears the session variables if user exited an earlier new booking process without creating it
     # session_store(params[:bookable], @bookable.id) unless session[:bookable_id]

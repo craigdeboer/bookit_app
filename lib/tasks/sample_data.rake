@@ -4,7 +4,7 @@ namespace :db do
 	task populate: :environment do
 		
 		5.times do |m|
-			ActsAsTenant.current_tenant = Account.find(m)
+			ActsAsTenant.current_tenant = Account.find(m + 1)
 			30.times do |n|
 				manufacturer_select = ["Pride", "Sunrise", "Motion Composites", "PDG", "Invacare", "Ottobock"]
 				pride_model = ["Litestream", "Stylus"]
