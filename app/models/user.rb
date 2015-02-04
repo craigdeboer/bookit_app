@@ -5,8 +5,10 @@ class User < ActiveRecord::Base
 
 	has_many :bookings
 
-	validates_uniqueness_to_tenant :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
-	validates_uniqueness_to_tenant :initials, presence: true, uniqueness: { case_sensitive: false }
+	validates :name, presence: true, length: { maximum: 50 }
+	validates :initials, presence: true
+	validates_uniqueness_to_tenant :name, case_sensitive: false 
+	validates_uniqueness_to_tenant :initials, case_sensitive: false 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email,		 presence: true, format: { with: VALID_EMAIL_REGEX }, length: { maximum: 255 }
 	validates :password, presence: true, length: { minimum: 6, maximum: 255 }
