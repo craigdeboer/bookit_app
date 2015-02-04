@@ -53,6 +53,6 @@ end
 private
 
 	def powerchair_params
-		params.require(:powerchair).permit(:manufacturer, :model_type, :drive, :color, :inventory_tag, :serial_number)
+		params.require(:powerchair).permit(:manufacturer, :model_type, :drive, :color, :inventory_tag, :serial_number, :location, :tilt, :features)
 	end
 end

@@ -45,7 +45,7 @@ class OthersController < ApplicationController
 	private
 
 		def other_params
-			params.require(:other).permit(:manufacturer, :model_type, :inventory_tag, :description)
+			params.require(:other).permit(:manufacturer, :model_type, :inventory_tag, :description, :location)
 		end
 
 end

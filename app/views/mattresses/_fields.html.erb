@@ -2,6 +2,7 @@
 
 <%= f.input :manufacturer %>
 <%= f.input :model_type, label: "Model" %>
+<%= f.input :location, label: "Model" if location?%>
 <%= f.input :size %>
-<%= f.input :inventory_tag %>
+<%= f.input :inventory_tag if inventory?%>
 <%= f.input :serial_number %>

@@ -2,11 +2,14 @@
 <table id="powerchairs">
 	<thead>
 		<tr>
-			<th class="hidden-xs">Manufacturer</th>
+			<th>Manufacturer</th>
 			<th>Model</th>
 			<th>Drive Wheel</th>
-			<th class="hidden-xs">Color</th>
-			<th class="hidden-xs">Inventory Tag</th>
+			<%= content_tag(:th, "Tilt") if tilt? %>
+			<%= content_tag(:th, "Features") if features? %>	
+			<%= content_tag(:th, "Location") if location? %>
+			<%= content_tag(:th, "Inventory Tag") if inventory? %>
+			<th>Color</th>
 			<th>Serial Number</th>
 			<th></th>
 			<% if admin? %>
@@ -18,11 +21,19 @@
 	<tbody>
 		<% @powerchairs.each do |pc| %>
 			<tr>
-				<td class="hidden-xs"><%= pc.manufacturer %></td>
+				<td><%= pc.manufacturer %></td>
 				<td><%= pc.model_type %></td>
 				<td><%= pc.drive %></td>
-				<td class="hidden-xs"><%= pc.color %></td>
-				<td class="hidden-xs"><%= pc.inventory_tag %></td>
+				<%= content_tag(:td, 
+					if pc.tilt
+						"Yes"
+					else
+						"No"
+					end) if tilt? %>
+				<%= content_tag(:td, pc.features) if features? %>
+				<%= content_tag(:td, pc.location) if location? %>
+				<%= content_tag(:td, pc.inventory_tag) if inventory? %>
+				<td><%= pc.color %></td>
 				<td><%= pc.serial_number %></td>
 				<td><%= link_to "View/ Book", new_powerchair_booking_path(pc), class: "btn btn-primary btn-sm" %></td>
 				<% if admin? %>

@@ -59,6 +59,6 @@ class WheelchairsController < ApplicationController
 	private
 
 		def wheelchair_params
-			params.require(:wheelchair).permit(:manufacturer, :model_type, :width, :depth, :color, :inventory_tag, :serial_number)
+			params.require(:wheelchair).permit(:manufacturer, :model_type, :width, :depth, :color, :inventory_tag, :serial_number, :location, :seat_to_floor)
 		end
 end

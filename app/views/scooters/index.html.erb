@@ -1,12 +1,15 @@
 <div id="sindex">
+<% show_location = location? %>
+<% show_inventory = inventory? %>
 <table id="scooters">
 	<thead>
 		<tr>
-			<th class="hidden-xs">Manufacturer</th>
+			<th>Manufacturer</th>
 			<th>Model</th>
 			<th>Wheels</th>
-			<th class="hidden-xs">Color</th>
-			<th class="hidden-xs">Inventory Tag</th>
+			<%= content_tag(:th, "Location") if show_location %>
+			<%= content_tag(:th, "Inventory Tag") if show_inventory %>
+			<th>Color</th>	
 			<th>Serial Number</th>
 			<th></th>
 			<% if admin? %>
@@ -18,11 +21,12 @@
 	<tbody>
 		<% @scooters.each do |scooter| %>
 			<tr>
-				<td class="hidden-xs"><%= scooter.manufacturer %></td>
+				<td><%= scooter.manufacturer %></td>
 				<td><%= scooter.model_type %></td>
 				<td><%= scooter.wheels %></td>
-				<td class="hidden-xs"><%= scooter.color %></td>
-				<td class="hidden-xs"><%= scooter.inventory_tag %></td>
+				<%= content_tag(:td, scooter.location) if show_location %>
+				<%= content_tag(:td, scooter.inventory_tag) if show_inventory %>
+				<td><%= scooter.color %></td>
 				<td><%= scooter.serial_number %></td>
 				<td><%= link_to "View/ Book", new_scooter_booking_path(scooter), class: "btn btn-primary btn-sm" %></td>
 				<% if admin? %>

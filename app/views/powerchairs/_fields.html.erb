@@ -1,8 +1,10 @@
 <%= render 'shared/error_messages', object: f.object %>
-
 <%= f.input :manufacturer %>
 <%= f.input :model_type, label: "Model" %>
 <%= f.input :drive, label: "Drive Wheel", collection: ["Mid", "Rear", "Front"] %>
 <%= f.input :color %>
-<%= f.input :inventory_tag %>
+<%= f.input :location if location? %>
+<%= f.input :tilt, as: :boolean, label_html: { class:"col-sm-4 col-sm-offset-1"} if tilt? %>
+<%= f.input :features if features? %>
+<%= f.input :inventory_tag if inventory? %>
 <%= f.input :serial_number %>

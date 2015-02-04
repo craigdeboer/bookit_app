@@ -5,6 +5,11 @@
 				<%= f.input :name  %>
 				<%= f.input :subdomain %>
 				<%= f.input :user_limit %>
+				<%= f.input :location %>
+				<%= f.input :inventory_tag %>
+				<%= f.input :wc_stf, label: "STF" %>
+				<%= f.input :pc_features, label: "Powerchair Features" %>
+				<%= f.input :pc_tilt, label: "Powerchair Tilt", as: :radio_buttons %>
 				<%= f.submit "Save Changes", class: "row btn btn-primary btn-lg col-xs-6 col-xs-offset-5 col-sm-6 col-sm-offset-4" %>
 			<% end %>
 		</div>

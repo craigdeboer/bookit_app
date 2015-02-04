@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107193744) do
+ActiveRecord::Schema.define(version: 20150203174700) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -19,6 +19,11 @@ ActiveRecord::Schema.define(version: 20150107193744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_limit"
+    t.boolean  "location"
+    t.boolean  "inventory_tag"
+    t.boolean  "wc_stf"
+    t.boolean  "pc_features"
+    t.boolean  "pc_tilt"
   end
 
   create_table "bookings", force: true do |t|
@@ -42,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150107193744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"
+    t.string   "location"
   end
 
   create_table "others", force: true do |t|
@@ -52,6 +58,7 @@ ActiveRecord::Schema.define(version: 20150107193744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"
+    t.string   "location"
   end
 
   create_table "powerchairs", force: true do |t|
@@ -64,6 +71,9 @@ ActiveRecord::Schema.define(version: 20150107193744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"
+    t.string   "location"
+    t.boolean  "tilt"
+    t.string   "features"
   end
 
   create_table "scooters", force: true do |t|
@@ -76,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150107193744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"
+    t.string   "location"
   end
 
   add_index "scooters", ["account_id"], name: "index_scooters_on_account_id", using: :btree
@@ -103,6 +114,8 @@ ActiveRecord::Schema.define(version: 20150107193744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"
+    t.string   "seat_to_floor"
+    t.string   "location"
   end
 
   add_index "wheelchairs", ["account_id"], name: "index_wheelchairs_on_account_id", using: :btree

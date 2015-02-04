@@ -1,10 +1,13 @@
 <div id="oindex">
+<% show_location = location? %>
+<% show_inventory = inventory? %>
 <table id="others">
 	<thead>
 		<tr>
-			<th class="hidden-xs">Manufacturer</th>
+			<th>Manufacturer</th>
 			<th>Model</th>
-			<th class="hidden-xs">Inventory Tag</th>
+			<%= content_tag(:th, "Location") if show_location %>
+			<%= content_tag(:th, "Inventory Tag") if show_inventory %>
 			<th>Description</th>
 			<th></th>
 			<% if admin? %>
@@ -16,9 +19,10 @@
 	<tbody>
 		<% @others.each do |other| %>
 			<tr>
-				<td class="hidden-xs"><%= other.manufacturer %></td>
+				<td><%= other.manufacturer %></td>
 				<td><%= other.model_type %></td>
-				<td class="hidden-xs"><%= other.inventory_tag %></td>
+				<%= content_tag(:td, other.location) if show_location %>
+				<%= content_tag(:td, other.inventory_tag) if show_inventory %>
 				<td><%= other.description %></td>
 				<td><%= link_to "View/ Book", new_other_booking_path(other), class: "btn btn-primary btn-sm" %></td>
 				<% if admin? %>

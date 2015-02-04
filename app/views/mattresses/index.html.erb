@@ -1,11 +1,14 @@
 <div id="mindex">
+<% show_location = location? %>
+<% show_inventory = inventory? %>
 <table id="mattresses">
 	<thead>
 		<tr>
-			<th class="hidden-xs">Manufacturer</th>
+			<th>Manufacturer</th>
 			<th>Model</th>
+			<%= content_tag(:th, "Location") if show_location %>
+			<%= content_tag(:th, "Inventory Tag") if show_inventory %>
 			<th>Size</th>
-			<th class="hidden-xs">Inventory Tag</th>
 			<th>Serial Number</th>
 			<th></th>
 			<% if admin? %>
@@ -17,10 +20,11 @@
 	<tbody>
 		<% @mattress.each do |mattress| %>
 			<tr>
-				<td class="hidden-xs"><%= mattress.manufacturer %></td>
+				<td><%= mattress.manufacturer %></td>
 				<td><%= mattress.model_type %></td>
-				<td class="hidden-xs"><%= mattress.size %></td>
-				<td class="hidden-xs"><%= mattress.inventory_tag %></td>
+				<%= content_tag(:td, mattress.location) if show_location %>
+				<%= content_tag(:td, mattress.inventory_tag) if show_inventory %>
+				<td><%= mattress.size %></td>
 				<td><%= mattress.serial_number %></td>
 				<td><%= link_to "View/ Book", new_mattress_booking_path(mattress), class: "btn btn-primary btn-sm" %></td>
 				<% if admin? %>

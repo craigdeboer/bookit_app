@@ -45,6 +45,6 @@ class ScootersController < ApplicationController
 	private
 
 		def scooter_params
-			params.require(:scooter).permit(:manufacturer, :model_type, :wheels, :color, :inventory_tag, :serial_number)
+			params.require(:scooter).permit(:manufacturer, :model_type, :wheels, :color, :inventory_tag, :serial_number, :location)
 		end
 end

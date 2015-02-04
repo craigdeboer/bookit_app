@@ -3,6 +3,7 @@
 <%= f.input :manufacturer %>
 <%= f.input :model_type, label: "Model" %>
 <%= f.input :wheels, label: "Wheels", collection: ["4 Wheel", "3 Wheel"] %>
+<%= f.input :location if location?%>
+<%= f.input :inventory_tag if inventory?%>
 <%= f.input :color %>
-<%= f.input :inventory_tag %>
 <%= f.input :serial_number %>

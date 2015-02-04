@@ -294,6 +294,9 @@ button.navbar-toggle {
 	margin-top: 25px;
 }
 
+.equipment-form form label {
+	text-align: right;
+}
 
 
 
@@ -436,7 +439,16 @@ footer ul li {
 	margin-top: 25px;
 }
 
+@media (max-width: 600px) {
 
+	#booking-calendar {
+		td {
+			height: 60px;
+		}
+		font-size: 11px;
+	}
+
+}
 
 
 

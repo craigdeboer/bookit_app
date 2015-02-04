@@ -2,5 +2,6 @@
 
 <%= f.input :manufacturer %>
 <%= f.input :model_type, label: "Model" %>
-<%= f.input :inventory_tag %>
+<%= f.input :location if location? %>
+<%= f.input :inventory_tag if inventory? %>
 <%= f.input :description %>

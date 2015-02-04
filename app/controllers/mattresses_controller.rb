@@ -45,7 +45,7 @@ class MattressesController < ApplicationController
 	private
 
 		def mattress_params
-			params.require(:mattress).permit(:manufacturer, :model_type, :size, :inventory_tag, :serial_number)
+			params.require(:mattress).permit(:manufacturer, :model_type, :size, :inventory_tag, :serial_number, :location)
 		end
 
 end

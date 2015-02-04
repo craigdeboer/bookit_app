@@ -26,6 +26,26 @@ module ApplicationHelper
 		end
 		@equipment
 	end
+
+	def location?
+		ActsAsTenant.current_tenant.location
+	end
+
+	def inventory?
+		ActsAsTenant.current_tenant.inventory_tag
+	end
+
+	def tilt?
+		ActsAsTenant.current_tenant.pc_tilt
+	end
+
+	def stf?
+		ActsAsTenant.current_tenant.wc_stf
+	end
+
+	def features?
+		ActsAsTenant.current_tenant.pc_features
+	end
 end
 
 
