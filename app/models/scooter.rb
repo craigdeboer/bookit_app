@@ -7,6 +7,5 @@ class Scooter < ActiveRecord::Base
 	validates :manufacturer, presence: true
 	validates :model_type, presence: true
 	validates :wheels, presence: true
-	validates :inventory_tag, presence: true
 	validates :serial_number, presence: true
 end
